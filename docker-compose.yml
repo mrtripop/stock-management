@@ -1,22 +1,25 @@
 services:
-  db:
+  management:
+    container_name: management
+    image: management:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+  postgres:
     container_name: postgres
     image: postgres
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
+      POSTGRES_DB: stock
       PGDATA: /data/postgres
     volumes:
-      - db:/data/postgres
+      - postgres:/data/postgres
     ports:
       - "5432:5432"
-    networks:
-      - db
     restart: unless-stopped
 
-networks:
-  db:
-    driver: bridge
-
 volumes:
-  db:
+  postgres:
