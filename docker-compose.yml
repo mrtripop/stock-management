@@ -1,7 +1,7 @@
 services:
-  management:
+  service:
     container_name: management
-    image: management:0.0.1-SNAPSHOT
+    build: ./
     ports:
       - "8080:8080"
     depends_on:
