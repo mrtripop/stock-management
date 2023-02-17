@@ -26,6 +26,17 @@ stock system form optimize workload efficiency.
     - OpenTelemetry
     - Micrometer
 
+## Step Development
+- CRUD API for interact with `Postgres` database
+- CRUD API for interact with `Redis` cache
+- Setting `docker-compose` for simulate monitoring
+  - OpenTelemetry
+  - Grafana Tempo
+  - Grafana
+- Implement `Micrometer` for compare with `OpenTelemetry`
+  - Detail between both
+  - Log format with log standard
+
 ## Configuration
 
 Go to `src/main/resourse` file `application.yml`<br/>
