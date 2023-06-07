@@ -1,7 +1,8 @@
 package com.learn.service;
 
 import com.learn.model.postgres.Customer;
-import com.learn.repository.CustomerRepository;
+import com.learn.repository.Customer.CustomerRepository;
+import com.learn.service.Customer.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,15 +1,15 @@
-package com.learn.controller;
+package com.learn.controller.Inventory;
 
 import com.learn.model.postgres.Customer;
-import com.learn.service.CustomerService;
+import com.learn.service.Customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/customer")
-public class CustomerController {
+@RequestMapping("api/v1/inventory")
+public class InventoryController {
 
     @Autowired
     private CustomerService customerService;

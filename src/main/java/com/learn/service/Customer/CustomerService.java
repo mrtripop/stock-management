@@ -1,7 +1,7 @@
-package com.learn.service;
+package com.learn.service.Customer;
 
 import com.learn.model.postgres.Customer;
-import com.learn.repository.CustomerRepository;
+import com.learn.repository.Customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

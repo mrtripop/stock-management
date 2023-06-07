@@ -1,13 +1,11 @@
 package com.learn.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.learn.service.CustomerService;
+import com.learn.service.Customer.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerControllerTest {
 
