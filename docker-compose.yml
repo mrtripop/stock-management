@@ -11,12 +11,12 @@ services:
     container_name: postgres
     image: postgres
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: stock
-      PGDATA: /data/postgres
-    volumes:
-      - postgres:/data/postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: inventory
+#      PGDATA: /data/postgres
+#    volumes:
+#      - postgres:/data/postgres
     ports:
       - "5432:5432"
     restart: unless-stopped

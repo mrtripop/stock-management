@@ -3,10 +3,9 @@ server:
 
 spring:
   datasource:
-#    url: jdbc:postgresql://postgres:5432/stock
-    url: jdbc:postgresql://localhost:5432/stock
-    username: admin
-    password: password
+    url: jdbc:postgresql://localhost:5432/inventory
+    username: postgres
+    password: postgres
   jpa:
     hibernate:
       ddl-auto: update
