@@ -13,10 +13,10 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: stock
-      PGDATA: /data/postgres
-    volumes:
-      - postgres:/data/postgres
+      POSTGRES_DB: inventory
+#      PGDATA: /data/postgres
+#    volumes:
+#      - postgres:/data/postgres
     ports:
       - "5432:5432"
     restart: unless-stopped
