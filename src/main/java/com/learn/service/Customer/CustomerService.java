@@ -1,12 +1,11 @@
 package com.learn.service.Customer;
 
-import com.learn.model.Customer.CustomerModel;
+import com.learn.model.Customer.Customer;
 import com.learn.repository.Customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -17,7 +16,7 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public List<CustomerModel> getAllCustomer() {
+    public List<Customer> getAllCustomer() {
         try {
             return customerRepository.findAll();
         } catch (Exception e) {
@@ -26,7 +25,7 @@ public class CustomerService {
         }
     }
 
-    public CustomerModel insertCustomer(CustomerModel customer) {
+    public Customer insertCustomer(Customer customer) {
         try {
             customerRepository.save(customer);
             return customer;
@@ -46,9 +45,9 @@ public class CustomerService {
         }
     }
 
-    public CustomerModel updateCustomerName(Integer id, CustomerModel newCustomerInfo) {
+    public Customer updateCustomerName(Integer id, Customer newCustomerInfo) {
 //        try {
-//            Optional<CustomerModel> customerInfo = customerRepository.findById(id);
+//            Optional<Customer> customerInfo = customerRepository.findById(id);
 //            customerInfo.map(customer -> {
 //                customer.setName(newCustomerInfo.getName());
 //                customerRepository.save(customer);

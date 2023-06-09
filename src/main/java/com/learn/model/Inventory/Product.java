@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "product")
-public class ProductModel implements Serializable {
+public class Product implements Serializable {
     @Id
     @SequenceGenerator(
             name = "product_id_sequence",
