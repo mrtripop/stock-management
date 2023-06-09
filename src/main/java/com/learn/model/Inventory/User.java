@@ -13,7 +13,7 @@ import java.sql.Date;
         @Index(columnList = "mobile ASC", name = "uq_mobile", unique = true),
         @Index(columnList = "email ASC", name = "uq_email", unique = true),
 })
-public class UserModel implements Serializable {
+public class User implements Serializable {
     @Id
     @SequenceGenerator(
             name = "user_id_sequence",
@@ -24,6 +24,7 @@ public class UserModel implements Serializable {
             strategy = GenerationType.SEQUENCE,
             generator = "user_id_sequence"
     )
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "roleId")

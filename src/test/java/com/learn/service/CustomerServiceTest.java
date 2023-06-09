@@ -1,22 +1,6 @@
 package com.learn.service;
 
-import com.learn.model.Customer.CustomerModel;
-import com.learn.repository.Customer.CustomerRepository;
-import com.learn.service.Customer.CustomerService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-
-import java.util.Collections;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 class CustomerServiceTest {
@@ -27,13 +11,13 @@ class CustomerServiceTest {
 //    @InjectMocks
 //    private CustomerService customerService;
 //
-//    private CustomerModel customer;
+//    private Customer customer;
 //
 //    @BeforeEach
 //    void setup() {
 //        customerRepository = Mockito.mock(CustomerRepository.class);
 //        customerService = new CustomerService(customerRepository);
-//        customer = CustomerModel.builder()
+//        customer = Customer.builder()
 //                .id(1)
 //                .name("Alex")
 //                .email("alex@gmail.com")

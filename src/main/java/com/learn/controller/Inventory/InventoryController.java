@@ -1,6 +1,6 @@
 package com.learn.controller.Inventory;
 
-import com.learn.model.Customer.CustomerModel;
+import com.learn.model.Customer.Customer;
 import com.learn.service.Customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +19,12 @@ public class InventoryController {
     }
 
     @GetMapping
-    public List<CustomerModel> getAllCustomer() {
+    public List<Customer> getAllCustomer() {
         return customerService.getAllCustomer();
     }
 
     @PostMapping
-    public CustomerModel insertNewCustomer(@RequestBody CustomerModel customer) {
+    public Customer insertNewCustomer(@RequestBody Customer customer) {
         return customerService.insertCustomer(customer);
     }
 
@@ -34,7 +34,7 @@ public class InventoryController {
     }
 
     @PutMapping("{customerId}")
-    public CustomerModel updateCustomer(@PathVariable("customerId") Integer customerId, @RequestBody CustomerModel customer) {
+    public Customer updateCustomer(@PathVariable("customerId") Integer customerId, @RequestBody Customer customer) {
         return customerService.updateCustomerName(customerId, customer);
     }
 }

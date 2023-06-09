@@ -14,7 +14,7 @@ import java.io.Serializable;
 }, uniqueConstraints = {
         @UniqueConstraint(columnNames = {"productId"})
 })
-public class ProductMetaModel implements Serializable {
+public class ProductMeta implements Serializable {
     @Id
     @SequenceGenerator(
             name = "product_meta_id_sequence",
@@ -29,7 +29,7 @@ public class ProductMetaModel implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "productId", referencedColumnName = "id")
-    private ProductModel productId;
+    private Product productId;
 
     @Column(name = "key")
     private String key;
