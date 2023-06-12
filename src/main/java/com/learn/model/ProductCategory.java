@@ -7,27 +7,25 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 @Data
 @Entity
-@Table(name = "product_meta")
+@Table(name = "product_category")
 @NoArgsConstructor
-public class ProductMeta implements Serializable {
+public class ProductCategory implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_meta_seq")
-    @SequenceGenerator(name = "product_meta_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_category_seq")
+    @SequenceGenerator(name = "product_category_seq", allocationSize = 1)
     private Long id;
-
-    @Column(columnDefinition = "varchar(50)")
-    private String key;
-    @Column(columnDefinition = "text")
-    private String content;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Category category;
 }

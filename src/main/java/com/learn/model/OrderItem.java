@@ -1,6 +1,5 @@
 package com.learn.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,37 +13,42 @@ import java.time.ZonedDateTime;
 
 @Data
 @Entity
-@Table(name = "transaction")
+@Table(name = "order_info_item")
 @NoArgsConstructor
-public class Transaction implements Serializable {
+public class OrderItem implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_seq")
-    @SequenceGenerator(name = "transaction_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_info_item_seq")
+    @SequenceGenerator(name = "order_info_item_seq", allocationSize = 1)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User user;
+    private Product product;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "order_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Order order;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "item_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Item item;
+
     @Column(columnDefinition = "varchar(100)")
-    private String code;
+    private String sku;
+    private Float price;
+    private Float discount;
     @Column(columnDefinition = "smallint")
-    private Integer type;
-    @Column(columnDefinition = "smallint")
-    private Integer mode;
-    @Column(columnDefinition = "smallint")
-    private Integer status;
+    private Integer quantity;
     @Column(columnDefinition = "text")
     private String content;
+
     @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
     private ZonedDateTime createdAt;
     @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
     private ZonedDateTime updatedAt;
+
 }

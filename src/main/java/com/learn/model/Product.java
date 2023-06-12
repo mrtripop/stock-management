@@ -33,12 +33,4 @@ public class Product implements Serializable {
     private ZonedDateTime createdAt;
     @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
     private ZonedDateTime updatedAt;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "product_categories",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-    private Collection<Category> categories;
 }
