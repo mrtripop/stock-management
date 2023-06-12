@@ -21,7 +21,9 @@ public class Brand implements Serializable {
 
     @Column(columnDefinition = "varchar(75)")
     private String title;
+    @Column(columnDefinition = "text")
     private String summary;
+    @Column(columnDefinition = "text")
     private String content;
     @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
     private ZonedDateTime createdAt;

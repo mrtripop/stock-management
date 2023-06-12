@@ -1,9 +1,12 @@
 package com.learn.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.type.SqlTypes;
 
 import java.io.Serializable;
@@ -20,8 +23,15 @@ public class Address implements Serializable {
     @SequenceGenerator(name = "address_seq", allocationSize = 1)
     private Long id;
 
-    private Long userId;
-    private Long orderId;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "order_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Order order;
 
     @Column(columnDefinition = "varchar(50)")
     private String firstName;
@@ -43,6 +53,7 @@ public class Address implements Serializable {
     private String province;
     @Column(columnDefinition = "varchar(50)")
     private String country;
+
     @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
     private ZonedDateTime createdAt;
     @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
