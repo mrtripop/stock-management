@@ -27,4 +27,5 @@ public class InventoryController {
     public String hello() {
         return "Hello";
     }
+
 }
