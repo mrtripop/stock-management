@@ -33,12 +33,50 @@ public class UserController {
     }
   }
 
+  @GetMapping("/{id}")
+  public ResponseEntity<User> retrieveUserById(@PathVariable Long id) {
+    try {
+      User user = userService.retrieveUserById(id);
+      log.debug(user.toString());
+      return ResponseEntity.ok(user);
+    } catch (Exception e) {
+      log.error(e.getMessage(), e.getCause());
+      return ResponseEntity.status(500).body(null);
+    }
+  }
+
   @PostMapping
   public ResponseEntity<User> createNewUser(@RequestBody User user) {
     try {
       User result = userService.createNewUser(user);
       log.debug(result.toString());
       return ResponseEntity.ok(result);
+    } catch (Exception e) {
+      log.error(e.getMessage(), e.getCause());
+      return ResponseEntity.status(500).body(null);
+    }
+  }
+
+  @PutMapping("/{id}/general")
+  public ResponseEntity<User> updateUserGeneralInfo(@PathVariable Long id, @RequestBody User user) {
+    try {
+      User updateUser = userService.updateUserGeneralInfo(id, user);
+      log.debug(updateUser.toString());
+      return ResponseEntity.ok(updateUser);
+    } catch (Exception e) {
+      log.error(e.getMessage(), e.getCause());
+      return ResponseEntity.status(500).body(null);
+    }
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<String> deleteUserById(@PathVariable Long id) {
+    try {
+      boolean status = userService.deleteUserById(id);
+      if (status) {
+        return ResponseEntity.accepted().body("Delete user id: " + id + "success!");
+      }
+      return ResponseEntity.notFound().build();
     } catch (Exception e) {
       log.error(e.getMessage(), e.getCause());
       return ResponseEntity.status(500).body(null);
