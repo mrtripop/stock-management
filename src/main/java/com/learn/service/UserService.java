@@ -2,13 +2,19 @@ package com.learn.service;
 
 import com.learn.model.User;
 import com.learn.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class UserService {
 
@@ -19,10 +25,20 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  public List<User> retrieveUsers() {
+  public List<User> retrieveUsers(Integer page, Integer size) {
     try {
-      return userRepository.findAll();
+      Pageable pageSize;
+      if (page < 0 && size < 1) {
+        pageSize = PageRequest.of(0, 10);
+      } else if (page < 0) {
+        pageSize = PageRequest.of(0, size);
+      } else {
+        pageSize = PageRequest.of(page - 1, size);
+      }
+      Page<User> pageUser = userRepository.findAll(pageSize);
+      return pageUser.stream().toList();
     } catch (Exception e) {
+      log.error(e.toString());
       throw new RuntimeException("RetrieveUsersException", e.getCause());
     }
   }

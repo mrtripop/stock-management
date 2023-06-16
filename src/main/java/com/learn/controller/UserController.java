@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -22,9 +23,11 @@ public class UserController {
   }
 
   @GetMapping
-  public ResponseEntity<List<User>> retrieveUsers() {
+  public ResponseEntity<List<User>> retrieveUsers(
+      @RequestParam(defaultValue = "1") Integer page,
+      @RequestParam(defaultValue = "10") Integer size) {
     try {
-      List<User> result = userService.retrieveUsers();
+      List<User> result = userService.retrieveUsers(page, size);
       log.debug(result.toString());
       return ResponseEntity.ok(result);
     } catch (Exception e) {
@@ -37,7 +40,9 @@ public class UserController {
   public ResponseEntity<User> retrieveUserById(@PathVariable Long id) {
     try {
       User user = userService.retrieveUserById(id);
-      log.debug(user.toString());
+      if (user == null) {
+        return ResponseEntity.notFound().build();
+      }
       return ResponseEntity.ok(user);
     } catch (Exception e) {
       log.error(e.getMessage(), e.getCause());
@@ -49,8 +54,7 @@ public class UserController {
   public ResponseEntity<User> createNewUser(@RequestBody User user) {
     try {
       User result = userService.createNewUser(user);
-      log.debug(result.toString());
-      return ResponseEntity.ok(result);
+      return ResponseEntity.created(URI.create("http://localhost:8080")).body(result);
     } catch (Exception e) {
       log.error(e.getMessage(), e.getCause());
       return ResponseEntity.status(500).body(null);
@@ -61,7 +65,6 @@ public class UserController {
   public ResponseEntity<User> updateUserGeneralInfo(@PathVariable Long id, @RequestBody User user) {
     try {
       User updateUser = userService.updateUserGeneralInfo(id, user);
-      log.debug(updateUser.toString());
       return ResponseEntity.ok(updateUser);
     } catch (Exception e) {
       log.error(e.getMessage(), e.getCause());
