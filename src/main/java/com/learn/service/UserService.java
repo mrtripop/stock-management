@@ -25,16 +25,41 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  public List<User> retrieveUsers(Integer page, Integer size) {
+  public PageRequest initSortOrder(PageRequest pageRequest, String orderBy) {
+    try {
+      if (orderBy.equals("desc")) {
+        log.debug("order: " + orderBy);
+        return pageRequest.withSort(Sort.Direction.DESC, "id");
+      } else {
+        log.debug("order: " + orderBy);
+        return pageRequest.withSort(Sort.Direction.ASC, "id");
+      }
+    } catch (Exception e) {
+      log.error("InitSortOrderException");
+      throw new RuntimeException("InitSortOrderException", e.getCause());
+    }
+  }
+
+  public Pageable initPageable(Integer page, Integer size, String orderBy) {
     try {
       Pageable pageSize;
       if (page < 0 && size < 1) {
-        pageSize = PageRequest.of(0, 10);
+        pageSize = initSortOrder(PageRequest.of(0, 10), orderBy);
       } else if (page < 0) {
-        pageSize = PageRequest.of(0, size);
+        pageSize = initSortOrder(PageRequest.of(0, size), orderBy);
       } else {
-        pageSize = PageRequest.of(page - 1, size);
+        pageSize = initSortOrder(PageRequest.of(page - 1, size), orderBy);
       }
+      return pageSize;
+    } catch (Exception e) {
+      log.error(e.toString());
+      throw new RuntimeException("GetPageSizeException", e.getCause());
+    }
+  }
+
+  public List<User> retrieveUsers(Integer page, Integer size, String orderBy) {
+    try {
+      Pageable pageSize = initPageable(page, size, orderBy);
       Page<User> pageUser = userRepository.findAll(pageSize);
       return pageUser.stream().toList();
     } catch (Exception e) {
@@ -78,7 +103,8 @@ public class UserService {
         userRepository.save(originalUser);
         return originalUser;
       }
-      return null;
+      userRepository.save(userUpdate);
+      return userUpdate;
     } catch (Exception e) {
       throw new RuntimeException("UpdateUserById", e.getCause());
     }

@@ -25,9 +25,10 @@ public class UserController {
   @GetMapping
   public ResponseEntity<List<User>> retrieveUsers(
       @RequestParam(defaultValue = "1") Integer page,
-      @RequestParam(defaultValue = "10") Integer size) {
+      @RequestParam(defaultValue = "10") Integer size,
+      @RequestParam(defaultValue = "asc") String orderBy) {
     try {
-      List<User> result = userService.retrieveUsers(page, size);
+      List<User> result = userService.retrieveUsers(page, size, orderBy);
       log.debug(result.toString());
       return ResponseEntity.ok(result);
     } catch (Exception e) {
@@ -65,7 +66,7 @@ public class UserController {
   public ResponseEntity<User> updateUserGeneralInfo(@PathVariable Long id, @RequestBody User user) {
     try {
       User updateUser = userService.updateUserGeneralInfo(id, user);
-      return ResponseEntity.ok(updateUser);
+      return ResponseEntity.accepted().body(updateUser);
     } catch (Exception e) {
       log.error(e.getMessage(), e.getCause());
       return ResponseEntity.status(500).body(null);
@@ -77,7 +78,7 @@ public class UserController {
     try {
       boolean status = userService.deleteUserById(id);
       if (status) {
-        return ResponseEntity.accepted().body("Delete user id: " + id + "success!");
+        return ResponseEntity.accepted().body("Delete user id: " + id + " success!");
       }
       return ResponseEntity.notFound().build();
     } catch (Exception e) {
