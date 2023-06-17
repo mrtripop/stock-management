@@ -1,13 +1,12 @@
 package com.learn.service;
 
+import com.learn.helper.DatabaseHelper;
 import com.learn.model.User;
 import com.learn.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
@@ -25,42 +24,11 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  public PageRequest initSortOrder(PageRequest pageRequest, String orderBy) {
-    try {
-      if (orderBy.equals("desc")) {
-        log.debug("order: " + orderBy);
-        return pageRequest.withSort(Sort.Direction.DESC, "id");
-      } else {
-        log.debug("order: " + orderBy);
-        return pageRequest.withSort(Sort.Direction.ASC, "id");
-      }
-    } catch (Exception e) {
-      log.error("InitSortOrderException");
-      throw new RuntimeException("InitSortOrderException", e.getCause());
-    }
-  }
-
-  public Pageable initPageable(Integer page, Integer size, String orderBy) {
-    try {
-      Pageable pageSize;
-      if (page < 0 && size < 1) {
-        pageSize = initSortOrder(PageRequest.of(0, 10), orderBy);
-      } else if (page < 0) {
-        pageSize = initSortOrder(PageRequest.of(0, size), orderBy);
-      } else {
-        pageSize = initSortOrder(PageRequest.of(page - 1, size), orderBy);
-      }
-      return pageSize;
-    } catch (Exception e) {
-      log.error(e.toString());
-      throw new RuntimeException("GetPageSizeException", e.getCause());
-    }
-  }
-
   public List<User> retrieveUsers(Integer page, Integer size, String orderBy) {
     try {
-      Pageable pageSize = initPageable(page, size, orderBy);
+      Pageable pageSize = DatabaseHelper.initPageable(page, size, orderBy);
       Page<User> pageUser = userRepository.findAll(pageSize);
+      log.debug(pageUser.toString());
       return pageUser.stream().toList();
     } catch (Exception e) {
       log.error(e.toString());
