@@ -16,3 +16,9 @@ spring:
     show-sql: true
   main:
     web-application-type: servlet
+
+
+  logging:
+    level:
+      com:
+        learn: debug

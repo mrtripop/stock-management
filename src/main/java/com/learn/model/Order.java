@@ -1,5 +1,6 @@
 package com.learn.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,34 +16,39 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 public class Order implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_info_seq")
-    @SequenceGenerator(name = "order_info_seq", allocationSize = 1)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_info_seq")
+  @SequenceGenerator(name = "order_info_seq", allocationSize = 1)
+  private Long id;
 
-    @Column(columnDefinition = "smallint")
-    private Integer type;
-    @Column(columnDefinition = "smallint")
-    private Integer status;
+  @Column(columnDefinition = "smallint")
+  private Integer type;
 
-    private Float subTotal;
-    private Float itemDiscount;
-    private Float tax;
-    private Float shipping;
-    private Float total;
-    @Column(columnDefinition = "varchar(50)")
-    private String promo;
-    private Float discount;
-    private Float grandTotal;
-    @Column(columnDefinition = "text")
-    private String content;
+  @Column(columnDefinition = "smallint")
+  private Integer status;
 
-    @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
-    private ZonedDateTime createdAt;
-    @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
-    private ZonedDateTime updatedAt;
+  private Float subTotal;
+  private Float itemDiscount;
+  private Float tax;
+  private Float shipping;
+  private Float total;
+  private Float discount;
+  private Float grandTotal;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
+  @Column(columnDefinition = "varchar(50)")
+  private String promo;
+
+  @Column(columnDefinition = "text")
+  private String content;
+
+  @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
+  private ZonedDateTime createdAt;
+
+  @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
+  private ZonedDateTime updatedAt;
+
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  @JsonIgnore
+  private User user;
 }
