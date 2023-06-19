@@ -26,7 +26,7 @@ public class UserService {
 
   public List<User> retrieveUsers(Integer page, Integer size, String orderBy) {
     try {
-      Pageable pageSize = DatabaseHelper.initPageable(page, size, orderBy);
+      Pageable pageSize = DatabaseHelper.initPageableWithSort(page, size, orderBy);
       Page<User> pageUser = userRepository.findAll(pageSize);
       log.debug(pageUser.toString());
       return pageUser.stream().toList();
