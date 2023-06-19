@@ -22,21 +22,32 @@ public class DatabaseHelper {
     }
   }
 
-  public static Pageable initPageable(Integer page, Integer size, String orderBy) {
+  public static PageRequest initPageable(Integer page, Integer size) {
     try {
-      Pageable pageSize;
-      if (page < 0 && size < 1) {
-        pageSize = initSortOrder(PageRequest.of(0, 10), orderBy);
-      } else if (page < 0) {
-        pageSize = initSortOrder(PageRequest.of(0, size), orderBy);
+      PageRequest pageSize;
+      if (page <= 0 && size < 1) {
+        pageSize = PageRequest.of(0, 10);
+      } else if (page <= 0) {
+        pageSize = PageRequest.of(0, size);
       } else {
-        pageSize = initSortOrder(PageRequest.of(page - 1, size), orderBy);
+        pageSize = PageRequest.of(page - 1, size);
       }
-      log.debug("PageSize: " + pageSize.toString());
+      log.debug("PageSize: " + pageSize);
       return pageSize;
     } catch (Exception e) {
       log.error(e.toString());
       throw new RuntimeException("GetPageSizeException", e.getCause());
+    }
+  }
+
+  public static Pageable initPageableWithSort(Integer page, Integer size, String orderBy) {
+    try {
+      PageRequest pageRequest = initPageable(page, size);
+      log.info(pageRequest.toString());
+      return initSortOrder(pageRequest, orderBy);
+    } catch (Exception e) {
+      log.error(e.toString());
+      throw new RuntimeException("GetPageSizeWithSortException", e.getCause());
     }
   }
 }
