@@ -5,8 +5,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
@@ -16,8 +14,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
   Optional<Order> findByUserIdAndId(Long userId, Long orderId);
 
   @Transactional
-  boolean deleteByUserId(Long userId);
+  void deleteByUserId(Long userId);
 
   @Transactional
-  boolean deleteByUserIdAndId(Long userId, Long id);
+  void deleteByUserIdAndId(Long userId, Long orderId);
 }

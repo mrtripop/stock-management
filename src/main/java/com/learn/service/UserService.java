@@ -1,9 +1,11 @@
 package com.learn.service;
 
 import com.learn.helper.DatabaseHelper;
+import com.learn.model.Order;
 import com.learn.model.User;
 import com.learn.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -87,6 +90,8 @@ public class UserService {
       }
       return false;
     } catch (Exception e) {
+      String error = ExceptionUtils.getStackTrace(e);
+      log.error(error);
       throw new RuntimeException("DeleteUserById", e.getCause());
     }
   }

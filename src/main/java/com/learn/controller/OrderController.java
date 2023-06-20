@@ -2,6 +2,7 @@ package com.learn.controller;
 
 import com.learn.model.Order;
 import com.learn.service.OrderService;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -79,6 +80,7 @@ public class OrderController {
     }
   }
 
+  @Transactional
   @DeleteMapping("/users/{userId}/orders")
   public ResponseEntity<Boolean> deleteUserOrder(@PathVariable(name = "userId") Long userId) {
     try {
@@ -86,13 +88,14 @@ public class OrderController {
       if (!order) return new ResponseEntity<>(HttpStatus.ACCEPTED);
       return new ResponseEntity<>(HttpStatus.OK);
     } catch (Exception e) {
-      log.error(e.toString());
+      log.error("Controller: " + e.toString());
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
+  @Transactional
   @DeleteMapping("/users/{userId}/orders/{orderId}")
-  public ResponseEntity<Boolean> deleteUserOrderById(
+  public ResponseEntity<?> deleteUserOrderById(
       @PathVariable(name = "userId") Long userId, @PathVariable(name = "orderId") Long orderId) {
     try {
       boolean order = orderService.deleteUserOrderById(userId, orderId);
