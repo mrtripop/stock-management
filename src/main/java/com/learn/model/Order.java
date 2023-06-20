@@ -1,5 +1,6 @@
 package com.learn.model;
 
+// import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -47,7 +48,7 @@ public class Order implements Serializable {
   @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
   private ZonedDateTime updatedAt;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
   @JsonIgnore
   private User user;

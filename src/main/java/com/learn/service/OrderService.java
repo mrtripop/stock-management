@@ -105,10 +105,11 @@ public class OrderService {
     try {
       boolean existedUser = userRepository.existsById(userId);
       if (!existedUser) return false;
-      return orderRepository.deleteByUserId(userId);
+      orderRepository.deleteByUserId(userId);
+      return true;
     } catch (Exception e) {
-      log.error(e.toString());
-      throw new RuntimeException("DeleteUserOrderException", e.getCause());
+      log.error("Service: " + e.toString());
+      throw new RuntimeException("DeleteUserOrdersException", e.getCause());
     }
   }
 
@@ -116,7 +117,8 @@ public class OrderService {
     try {
       boolean existedUser = userRepository.existsById(userId);
       if (!existedUser) return false;
-      return orderRepository.deleteByUserIdAndId(userId, orderId);
+      orderRepository.deleteByUserIdAndId(userId, orderId);
+      return true;
     } catch (Exception e) {
       log.error(e.toString());
       throw new RuntimeException("DeleteUserOrderByIdException", e.getCause());
