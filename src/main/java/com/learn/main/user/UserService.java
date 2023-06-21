@@ -1,9 +1,6 @@
-package com.learn.service;
+package com.learn.main.user;
 
 import com.learn.helper.DatabaseHelper;
-import com.learn.model.Order;
-import com.learn.model.User;
-import com.learn.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Slf4j
 @Service
@@ -85,7 +81,7 @@ public class UserService {
     try {
       Optional<User> originalUser = userRepository.findById(id);
       if (originalUser.isPresent()) {
-        userRepository.deleteById(id);
+        userRepository.delete(originalUser.get());
         return true;
       }
       return false;

@@ -1,6 +1,5 @@
-package com.learn.repository;
+package com.learn.main.order;
 
-import com.learn.model.Order;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

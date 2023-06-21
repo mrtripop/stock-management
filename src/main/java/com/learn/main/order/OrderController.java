@@ -1,7 +1,5 @@
-package com.learn.controller;
+package com.learn.main.order;
 
-import com.learn.model.Order;
-import com.learn.service.OrderService;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -9,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController

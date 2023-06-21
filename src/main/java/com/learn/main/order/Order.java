@@ -1,11 +1,14 @@
-package com.learn.model;
+package com.learn.main.order;
 
 // import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.learn.main.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.type.SqlTypes;
 
 import java.io.Serializable;
@@ -48,8 +51,9 @@ public class Order implements Serializable {
   @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
   private ZonedDateTime updatedAt;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "user_id", nullable = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
   @JsonIgnore
   private User user;
 }
