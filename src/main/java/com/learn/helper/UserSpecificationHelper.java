@@ -1,6 +1,6 @@
 package com.learn.helper;
 
-import com.learn.model.User;
+import com.learn.main.user.User;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.ZonedDateTime;
