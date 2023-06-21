@@ -1,16 +1,13 @@
-package com.learn.model;
+package com.learn.main.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.io.Serializable;
+import java.time.ZonedDateTime;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.io.Serializable;
-import java.time.ZonedDateTime;
-import java.util.Set;
 
 @Data
 @Entity
@@ -55,8 +52,4 @@ public class User implements Serializable {
 
   @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
   private ZonedDateTime lastLogin;
-
-  @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-  @JsonIgnore
-  private Set<Order> orders;
 }

@@ -1,10 +1,8 @@
-package com.learn.service;
+package com.learn.main.order;
 
 import com.learn.helper.DatabaseHelper;
-import com.learn.model.Order;
-import com.learn.model.User;
-import com.learn.repository.OrderRepository;
-import com.learn.repository.UserRepository;
+import com.learn.main.user.User;
+import com.learn.main.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
