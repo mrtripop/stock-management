@@ -1,5 +1,16 @@
 package com.learn.main.address;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AddressRepository extends JpaRepository<Address, Long> {}
+import java.util.Optional;
+
+public interface AddressRepository extends JpaRepository<Address, Long> {
+
+  Page<Address> findByUserId(Long userId, Pageable page);
+
+  Optional<Address> findByUserIdAndId(Long userId, Long addressId);
+
+  void deleteByUserIdAndId(Long userId, Long addressId);
+}
