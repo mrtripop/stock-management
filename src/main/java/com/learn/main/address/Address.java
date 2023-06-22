@@ -1,5 +1,6 @@
 package com.learn.main.address;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learn.main.order.Order;
 import com.learn.main.user.User;
 import jakarta.persistence.*;
@@ -23,16 +24,6 @@ public class Address implements Serializable {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_seq")
   @SequenceGenerator(name = "address_seq", allocationSize = 1)
   private Long id;
-
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "user_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private User user;
-
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "order_id", nullable = false)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  private Order order;
 
   @Column(columnDefinition = "varchar(50)")
   private String firstName;
@@ -69,4 +60,10 @@ public class Address implements Serializable {
 
   @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
   private ZonedDateTime updatedAt;
+
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "user_id", nullable = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JsonIgnore
+  private User user;
 }
