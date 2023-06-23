@@ -21,4 +21,8 @@ spring:
   logging:
     level:
       com:
-        learn: debug
+        learn: DEBUG
+    org:
+      hibernate: DEBUG
+
+

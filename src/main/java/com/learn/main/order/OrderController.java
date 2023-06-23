@@ -24,10 +24,9 @@ public class OrderController {
       @RequestParam(defaultValue = "0") Integer page,
       @RequestParam(defaultValue = "10") Integer size,
       @RequestParam(defaultValue = "asc") String orderBy,
-      @PathVariable(name = "userId", required = true) Long userId) {
+      @PathVariable(name = "userId") Long userId) {
     try {
       List<Order> result = orderService.retrieveUserOrders(userId, page, size, orderBy);
-      if (result == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
       return new ResponseEntity<>(result, HttpStatus.OK);
     } catch (Exception e) {
       log.error(e.toString());
@@ -51,9 +50,11 @@ public class OrderController {
 
   @PostMapping("/users/{userId}/orders")
   public ResponseEntity<Order> createNewOrder(
-      @PathVariable(name = "userId") Long userId, @RequestBody Order newOrder) {
+      @PathVariable(name = "userId") Long userId,
+      @RequestParam(name = "addressId", defaultValue = "1") Long addressId,
+      @RequestBody Order newOrder) {
     try {
-      Order order = orderService.createUserOrder(userId, newOrder);
+      Order order = orderService.createUserOrder(userId, addressId, newOrder);
       if (order == null) return new ResponseEntity<>(HttpStatus.ACCEPTED);
       return new ResponseEntity<>(order, HttpStatus.OK);
     } catch (Exception e) {

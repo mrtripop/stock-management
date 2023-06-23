@@ -1,6 +1,8 @@
 package com.learn.main.order;
 
 import com.learn.helper.DatabaseHelper;
+import com.learn.main.address.Address;
+import com.learn.main.address.AddressRepository;
 import com.learn.main.user.User;
 import com.learn.main.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +20,15 @@ public class OrderService {
 
   private final UserRepository userRepository;
   private final OrderRepository orderRepository;
+  private final AddressRepository addressRepository;
 
-  public OrderService(UserRepository userRepository, OrderRepository orderRepository) {
+  public OrderService(
+      UserRepository userRepository,
+      OrderRepository orderRepository,
+      AddressRepository addressRepository) {
     this.userRepository = userRepository;
     this.orderRepository = orderRepository;
+    this.addressRepository = addressRepository;
   }
 
   public List<Order> retrieveUserOrders(Long userId, Integer page, Integer size, String orderBy) {
@@ -33,7 +40,7 @@ public class OrderService {
         log.debug(orders.toString());
         return orders.stream().toList();
       } else {
-        return null;
+        return List.of();
       }
     } catch (Exception e) {
       log.error(e.toString());
@@ -53,13 +60,16 @@ public class OrderService {
     }
   }
 
-  public Order createUserOrder(Long userId, Order order) {
+  public Order createUserOrder(Long userId, Long addressId, Order order) {
     try {
-      Optional<User> existUser = userRepository.findById(userId);
-      if (existUser.isEmpty()) return null;
+      Optional<User> user = userRepository.findById(userId);
+      if (user.isEmpty()) return null;
+      Optional<Address> userAddress = addressRepository.findByUserIdAndId(userId, addressId);
+      if (userAddress.isEmpty()) return null;
       order.setCreatedAt(ZonedDateTime.now());
       order.setUpdatedAt(ZonedDateTime.now());
-      order.setUser(existUser.get());
+      order.setUser(user.get());
+      order.setAddress(userAddress.get());
       return orderRepository.save(order);
     } catch (Exception e) {
       log.error(e.toString());
