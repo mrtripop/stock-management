@@ -2,6 +2,7 @@ package com.learn.main.order;
 
 // import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.learn.main.address.Address;
 import com.learn.main.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -56,4 +57,10 @@ public class Order implements Serializable {
   @OnDelete(action = OnDeleteAction.CASCADE)
   @JsonIgnore
   private User user;
+
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "address_id", nullable = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JsonIgnore
+  private Address address;
 }
