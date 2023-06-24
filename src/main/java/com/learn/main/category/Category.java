@@ -13,24 +13,24 @@ import java.util.Collection;
 @NoArgsConstructor
 public class Category implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_seq")
-    @SequenceGenerator(name = "category_seq", allocationSize = 1)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_seq")
+  @SequenceGenerator(name = "category_seq", allocationSize = 1)
+  private Long id;
 
-    @Column(columnDefinition = "varchar(75)")
-    private String title;
-    @Column(columnDefinition = "varchar(100)")
-    private String metaTitle;
-    @Column(columnDefinition = "varchar(100)")
-    private String slug;
-    @Column(columnDefinition = "text")
-    private String content;
+  @Column(columnDefinition = "varchar(75)")
+  private String title;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "parent_id")
-    private Category parent;
+  @Column(columnDefinition = "varchar(100)")
+  private String metaTitle;
 
-    @OneToMany(mappedBy = "parent")
-    private Collection<Category> children;
+  @Column(columnDefinition = "varchar(100)")
+  private String slug;
+
+  @Column(columnDefinition = "text")
+  private String content;
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "parent_id")
+  private Category parent;
 }
