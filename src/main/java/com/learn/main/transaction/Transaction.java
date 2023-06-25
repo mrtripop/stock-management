@@ -1,5 +1,6 @@
 package com.learn.main.transaction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learn.main.order.Order;
 import com.learn.main.user.User;
 import jakarta.persistence.*;
@@ -48,10 +49,12 @@ public class Transaction implements Serializable {
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "user_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
+  @JsonIgnore
   private User user;
 
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "order_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
+  @JsonIgnore
   private Order order;
 }

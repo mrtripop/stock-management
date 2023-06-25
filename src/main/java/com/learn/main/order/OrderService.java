@@ -77,6 +77,8 @@ public class OrderService {
       order.setUpdatedAt(ZonedDateTime.now());
       order.setUser(user.get());
       order.setAddress(userAddress.get());
+      // create order
+      Order createOrder = orderRepository.save(order);
       // create transaction
       Transaction transaction = new Transaction();
       transaction.setCode("CREATE_ORDER_101");
@@ -85,11 +87,10 @@ public class OrderService {
       transaction.setStatus(1);
       transaction.setContent(order.getContent());
       transaction.setUser(user.get());
-      transaction.setOrder(order);
+      transaction.setOrder(createOrder);
       // create transaction
       transactionService.createNewTransaction(transaction);
-      // save order
-      return orderRepository.save(order);
+      return createOrder;
     } catch (Exception e) {
       log.error(e.toString());
       throw new RuntimeException("CreateOrderException", e.getCause());
