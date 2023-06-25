@@ -3,6 +3,8 @@ package com.learn.main.order;
 import com.learn.helper.DatabaseHelper;
 import com.learn.main.address.Address;
 import com.learn.main.address.AddressRepository;
+import com.learn.main.transaction.Transaction;
+import com.learn.main.transaction.TransactionService;
 import com.learn.main.user.User;
 import com.learn.main.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -21,14 +23,17 @@ public class OrderService {
   private final UserRepository userRepository;
   private final OrderRepository orderRepository;
   private final AddressRepository addressRepository;
+  private final TransactionService transactionService;
 
   public OrderService(
       UserRepository userRepository,
       OrderRepository orderRepository,
-      AddressRepository addressRepository) {
+      AddressRepository addressRepository,
+      TransactionService transactionService) {
     this.userRepository = userRepository;
     this.orderRepository = orderRepository;
     this.addressRepository = addressRepository;
+    this.transactionService = transactionService;
   }
 
   public List<Order> retrieveUserOrders(Long userId, Integer page, Integer size, String orderBy) {
@@ -62,14 +67,28 @@ public class OrderService {
 
   public Order createUserOrder(Long userId, Long addressId, Order order) {
     try {
+      // check user exist?
       Optional<User> user = userRepository.findById(userId);
       if (user.isEmpty()) return null;
+      // set metadata of order
       Optional<Address> userAddress = addressRepository.findByUserIdAndId(userId, addressId);
       if (userAddress.isEmpty()) return null;
       order.setCreatedAt(ZonedDateTime.now());
       order.setUpdatedAt(ZonedDateTime.now());
       order.setUser(user.get());
       order.setAddress(userAddress.get());
+      // create transaction
+      Transaction transaction = new Transaction();
+      transaction.setCode("CREATE_ORDER_101");
+      transaction.setType(1);
+      transaction.setMode(1);
+      transaction.setStatus(1);
+      transaction.setContent(order.getContent());
+      transaction.setUser(user.get());
+      transaction.setOrder(order);
+      // create transaction
+      transactionService.createNewTransaction(transaction);
+      // save order
       return orderRepository.save(order);
     } catch (Exception e) {
       log.error(e.toString());
@@ -116,7 +135,7 @@ public class OrderService {
       orderRepository.deleteByUserId(userId);
       return true;
     } catch (Exception e) {
-      log.error("Service: " + e.toString());
+      log.error("Service: " + e);
       throw new RuntimeException("DeleteUserOrdersException", e.getCause());
     }
   }
