@@ -31,7 +31,7 @@ public class TransactionController {
     }
   }
 
-  @GetMapping("/{userId}")
+  @GetMapping("/{userId}/users")
   public ResponseEntity<List<Transaction>> getTransactionByUserId(
       @PathVariable(name = "userId") Long userId) {
     try {
