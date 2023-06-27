@@ -16,21 +16,26 @@ import java.util.Collection;
 @NoArgsConstructor
 public class Product implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq")
-    @SequenceGenerator(name = "product_seq", allocationSize = 1)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq")
+  @SequenceGenerator(name = "product_seq", allocationSize = 1)
+  private Long id;
 
-    @Column(columnDefinition = "smallint")
-    private Integer type;
-    @Column(columnDefinition = "varchar(75)")
-    private String title;
-    @Column(columnDefinition = "text")
-    private String summary;
-    @Column(columnDefinition = "text")
-    private String content;
-    @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
-    private ZonedDateTime createdAt;
-    @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
-    private ZonedDateTime updatedAt;
+  @Column(columnDefinition = "smallint")
+  private Integer type;
+
+  @Column(columnDefinition = "varchar(75)")
+  private String title;
+
+  @Column(columnDefinition = "text")
+  private String summary;
+
+  @Column(columnDefinition = "text")
+  private String content;
+
+  @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
+  private ZonedDateTime createdAt;
+
+  @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
+  private ZonedDateTime updatedAt;
 }
