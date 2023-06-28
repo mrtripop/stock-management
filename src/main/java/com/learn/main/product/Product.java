@@ -8,7 +8,6 @@ import org.hibernate.type.SqlTypes;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.Collection;
 
 @Data
 @Entity

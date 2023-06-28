@@ -1,5 +1,6 @@
 package com.learn.main.productMeta;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learn.main.product.Product;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -15,19 +16,20 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ProductMeta implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_meta_seq")
-    @SequenceGenerator(name = "product_meta_seq", allocationSize = 1)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_meta_seq")
+  @SequenceGenerator(name = "product_meta_seq", allocationSize = 1)
+  private Long id;
 
-    @Column(columnDefinition = "varchar(50)")
-    private String key;
-    @Column(columnDefinition = "text")
-    private String content;
+  @Column(columnDefinition = "varchar(50)")
+  private String key;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "product_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Product product;
+  @Column(columnDefinition = "text")
+  private String content;
 
+  @ManyToOne(fetch = FetchType.EAGER, optional = false)
+  @JoinColumn(name = "product_id", nullable = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JsonIgnore
+  private Product product;
 }

@@ -18,11 +18,11 @@ spring:
     web-application-type: servlet
 
 
-  logging:
-    level:
-      com:
-        learn: DEBUG
+logging:
+  level:
+    com:
+      learn: DEBUG
     org:
-      hibernate: DEBUG
+      hibernate: INFO
 
 
