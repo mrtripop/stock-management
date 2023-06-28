@@ -1,7 +1,6 @@
 package com.learn.main.address;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.learn.main.order.Order;
 import com.learn.main.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
