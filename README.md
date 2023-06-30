@@ -13,18 +13,13 @@ stock system form optimize workload efficiency.
 ## Basic Knowledge
 
 - Development
-    - Postgresql
-    - Spring Boot 3
-    - Redis Cache
-
-- Monitoring
-    - Logging
-    - Tracing
-    - Metric
+  - Spring Boot 3
+  - Postgresql
+  - Redis Cache
 
 - Observability
-    - OpenTelemetry
-    - Micrometer
+    - [OpenTelemetry](https://opentelemetry.io/)
+    - [Micrometer](https://micrometer.io/)
 
 ## Step Development
 - CRUD API for interact with `Postgres` database
@@ -50,7 +45,7 @@ Go to `src/main/resourse` file `application.yml`<br/>
 Before start service, start database container at first.
 
 ```aidl
-docker compose up -d postgres
+docker compose up -d postgres --build
 ```
 
 Then start service
