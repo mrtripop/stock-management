@@ -7,6 +7,7 @@ import com.learn.main.transaction.Transaction;
 import com.learn.main.transaction.TransactionService;
 import com.learn.main.user.User;
 import com.learn.main.user.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -65,6 +66,7 @@ public class OrderService {
     }
   }
 
+  @Transactional
   public Order createUserOrder(Long userId, Long addressId, Order order) {
     try {
       // check user exist?
