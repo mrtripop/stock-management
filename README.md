@@ -10,12 +10,16 @@ stock system form optimize workload efficiency.
 - Java JDK 17
 - Docker
 
+## Code Style Guild
+
+- [Google Java Format](https://plugins.jetbrains.com/plugin/8527-google-java-format)
+- [Java Code Style Guild](https://www.cs.cornell.edu/courses/JavaAndDS/JavaStyle.html)
+
 ## Basic Knowledge
 
 - Development
-  - Spring Boot 3
-  - Postgresql
-  - Redis Cache
+  - [Spring Boot](https://spring.io/projects/spring-boot)
+  - [PostgreSQL](https://www.postgresql.org/)
 
 - Observability
     - [OpenTelemetry](https://opentelemetry.io/)
@@ -23,7 +27,6 @@ stock system form optimize workload efficiency.
 
 ## Step Development
 - CRUD API for interact with `Postgres` database
-- CRUD API for interact with `Redis` cache
 - Setting `docker-compose` for simulate monitoring
   - OpenTelemetry
   - Grafana Tempo
