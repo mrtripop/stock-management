@@ -17,7 +17,7 @@ for simulate manage stock system feature to know how it's work and what design i
 
 ## Basic Knowledge
 
-First start
+General
 
 - [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/)
 - [Java Code Style Guild](https://www.cs.cornell.edu/courses/JavaAndDS/JavaStyle.html)
@@ -26,10 +26,15 @@ Development
 
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Postgresql](https://www.postgresql.org/)
-- [Three pillars of Observability](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/ch04.html)
-- [OpenTelemetry Logging](https://opentelemetry.io/docs/specs/otel/logs/)
 - [Unit test in Spring Boot]
 - [Integration test in Spring Boot]
+
+Deployment
+
+- [OpenTelemetry Logging](https://opentelemetry.io/docs/specs/otel/logs/)
+- [Three pillars of Observability](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/ch04.html)
+- [Setup OpenTelemetry in Spring Boot](https://www.notion.so/Setup-OpenTelemetry-in-Spring-Boot-f273e32194af44fda8e46a7fecea9b4e?pvs=4)
+- [Kubernetes]
 
 ## Configuration
 
@@ -76,3 +81,7 @@ docker compose down
 ## URLs Resource
 
 [Tutorial where to go to Swagger & how to use it]
+
+## Changelog
+
+[How to use changelog file]
