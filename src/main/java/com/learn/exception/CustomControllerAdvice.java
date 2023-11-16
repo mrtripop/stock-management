@@ -11,29 +11,24 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class CustomControllerAdvice {
 
-  // exception handled
   @ExceptionHandler(NullPointerException.class)
   public ResponseEntity<ErrorResponse> handleNullPointerExceptions(Exception e) {
     String stackTrace = ExceptionUtils.getStackTrace(e);
-    log.error(stackTrace);
     HttpStatus status = HttpStatus.NOT_FOUND; // 404
     ErrorResponse error =
-        new ErrorResponse.ErrorResponseBuilder<>(status.toString(), status.value(), e.getMessage())
+        new ErrorResponse.ErrorResponseBuilder(status.toString(), status.value(), e.getMessage())
             .withStacktrace(stackTrace)
             .withTimestamp()
             .build();
     return new ResponseEntity<>(error, status);
   }
 
-  // fallback method
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorResponse> handleExceptions(Exception e) {
     HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR; // 500
-    // converting the stack trace to String
     String stackTrace = ExceptionUtils.getStackTrace(e);
-    log.error(stackTrace);
     ErrorResponse error =
-        new ErrorResponse.ErrorResponseBuilder<>(
+        new ErrorResponse.ErrorResponseBuilder(
                 status.toString(), status.value(), status.getReasonPhrase())
             .withStacktrace(stackTrace)
             .withTimestamp()
