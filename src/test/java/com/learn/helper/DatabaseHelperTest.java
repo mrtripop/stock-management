@@ -1,26 +1,12 @@
 package com.learn.helper;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class DatabaseHelperTest {
-
-  @Test
-  @DisplayName("Test update page request with order by desc")
-  void initSortOrder_ReturnDESC_WhenOrderByDescString() {
-    // arrange
-    PageRequest pageRequest = PageRequest.of(10, 10);
-    String orderBy = "desc";
-    // action
-    PageRequest updatePageRequest = DatabaseHelper.initSortOrder(pageRequest, orderBy);
-    // assert
-    assertEquals("DESC", updatePageRequest.getSort().toString());
-  }
 
   @Test
   @DisplayName("Test update page request with order by desc")
@@ -72,7 +58,4 @@ class DatabaseHelperTest {
     assertEquals(0, pageSize.getPageNumber());
     assertEquals(20, pageSize.getPageSize());
   }
-
-  @Test
-  void initPageableWithSort() {}
 }
