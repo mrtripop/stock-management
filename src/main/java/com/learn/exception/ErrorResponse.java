@@ -1,12 +1,10 @@
 package com.learn.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.http.HttpStatus;
-
 import java.time.Instant;
 import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -29,7 +27,7 @@ public class ErrorResponse {
     this.data = builder.data;
   }
 
-  public static class ErrorResponseBuilder<T> {
+  public static class ErrorResponseBuilder {
     private int code;
     private String status;
     private String message;
@@ -43,17 +41,17 @@ public class ErrorResponse {
       this.message = message;
     }
 
-    public ErrorResponseBuilder<T> withData(Object data) {
+    public ErrorResponseBuilder withData(Object data) {
       this.data = data;
       return this;
     }
 
-    public ErrorResponseBuilder<T> withStacktrace(String stackTrace) {
+    public ErrorResponseBuilder withStacktrace(String stackTrace) {
       this.stackTrace = stackTrace;
       return this;
     }
 
-    public ErrorResponseBuilder<T> withTimestamp() {
+    public ErrorResponseBuilder withTimestamp() {
       this.timestamp = Date.from(Instant.EPOCH);
       return this;
     }

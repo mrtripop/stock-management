@@ -31,9 +31,12 @@ Development
 
 Deployment
 
+- [Logging Format - Better Stack](https://betterstack.com/community/guides/logging/log-formatting/)
+- [Log Level]
 - [OpenTelemetry Logging](https://opentelemetry.io/docs/specs/otel/logs/)
 - [Three pillars of Observability](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/ch04.html)
 - [Setup OpenTelemetry in Spring Boot](https://www.notion.so/Setup-OpenTelemetry-in-Spring-Boot-f273e32194af44fda8e46a7fecea9b4e?pvs=4)
+- [Spring Boot with Actuator]
 - [Kubernetes]
 
 ## Configuration

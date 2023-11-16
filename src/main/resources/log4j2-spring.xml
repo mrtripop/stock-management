@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern='{"timestamp": "%d{ISO8601}", "level": "%level", "trace_id": "%X{trace_id}", "span_id": "%X{span_id}", "service": "%C{3}", "msg": "%enc{%m}{JSON}"}%n'/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+        </Root>
+        <Logger name="com.learn" level="INFO"/>
+    </Loggers>
+</Configuration>
