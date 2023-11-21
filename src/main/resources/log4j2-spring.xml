@@ -3,7 +3,7 @@
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout
-                    pattern='{"timestamp": "%d{ISO8601}", "level": "%level", "trace_id": "%X{trace_id}", "span_id": "%X{span_id}", "service": "%C{3}", "msg": "%enc{%m}{JSON}"}%n'/>
+                    pattern='{"timestamp": "%d{ISO8601}", "level": "%level", "trace_id": "%X{trace_id}", "span_id": "%X{span_id}", "app_version": "%X{app_version}", "api_path": "%X{api_path}", "service": "%C{3}", "msg": "%enc{%m}{JSON}"}%n'/>
         </Console>
     </Appenders>
 
@@ -11,6 +11,6 @@
         <Root level="INFO">
             <AppenderRef ref="Console"/>
         </Root>
-        <Logger name="com.learn" level="INFO"/>
+        <Logger name="com.mrtripop" level="INFO"/>
     </Loggers>
 </Configuration>
