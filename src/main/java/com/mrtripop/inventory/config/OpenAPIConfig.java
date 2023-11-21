@@ -6,14 +6,27 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.servers.Server;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class OpenAPIConfig {
-  private String devUrl = "http://localhost:8080";
 
-  private String prodUrl = "https://mrtripop.com";
+  @Value("${config.author.name}")
+  private String authorName;
+
+  @Value("${config.author.email}")
+  private String authorEmail;
+
+  @Value("${config.app.version}")
+  private String version;
+
+  @Value("${config.app.dev-url}")
+  private String devUrl;
+
+  @Value("${config.app.stg-url}")
+  private String stgUrl;
 
   @Bean
   public OpenAPI openAPI() {
@@ -21,13 +34,13 @@ public class OpenAPIConfig {
     devServer.setUrl(devUrl);
     devServer.setDescription("Development URL");
 
-    Server prodServer = new Server();
-    prodServer.setUrl(prodUrl);
-    prodServer.setDescription("Production URL");
+    Server stgServer = new Server();
+    stgServer.setUrl(stgUrl);
+    stgServer.setDescription("Staging URL");
 
     Contact contact = new Contact();
-    contact.setEmail("tripop.chai12@gmail.com");
-    contact.setName("Tripop Torcheep");
+    contact.setName(authorName);
+    contact.setEmail(authorEmail);
 
     License mitLicense =
         new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
@@ -35,11 +48,11 @@ public class OpenAPIConfig {
     Info info =
         new Info()
             .title("Stock Management API")
-            .version("1.0")
+            .version(version)
             .contact(contact)
             .description("This API exposes endpoints to manage stock.")
             .license(mitLicense);
 
-    return new OpenAPI().info(info).servers(List.of(devServer, prodServer));
+    return new OpenAPI().info(info).servers(List.of(devServer, stgServer));
   }
 }

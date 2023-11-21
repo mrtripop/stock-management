@@ -17,12 +17,20 @@ spring:
   main:
     web-application-type: servlet
 
-
 logging:
   level:
     com:
       learn: DEBUG
     org:
       hibernate: INFO
+
+config:
+  author:
+    name: Tripop Torcheep
+    email: tripop.chai12@gmail.com
+  app:
+    version: 1.0
+    dev-url: http://dev.mrtripop-int.com
+    stg-url: http://mrtripop-int.com
 
 
