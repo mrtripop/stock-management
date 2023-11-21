@@ -22,6 +22,11 @@ General
 - [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/)
 - [Java Code Style Guild](https://www.cs.cornell.edu/courses/JavaAndDS/JavaStyle.html)
 
+Design Pattern
+
+- [Facade](https://refactoring.guru/design-patterns/facade/java/example)
+- [Builder]()
+
 Development
 
 - [Spring Boot](https://spring.io/projects/spring-boot)
@@ -83,8 +88,10 @@ docker compose down
 
 ## URLs Resource
 
-[Tutorial where to go to Swagger & how to use it]
+In this section, we define the API endpoint & URLs for any resource as a Swagger. Please run the service and access API specification via web browser.
+```shell
+http://localhost:8080/swagger-ui/index.html
+```
 
-## Changelog
 
-[How to use changelog file]
+
