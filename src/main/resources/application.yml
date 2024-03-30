@@ -29,8 +29,11 @@ config:
     name: Tripop Torcheep
     email: tripop.chai12@gmail.com
   app:
-    version: 1.0
-    dev-url: http://dev.mrtripop-int.com
-    stg-url: http://mrtripop-int.com
+    version: 1.0.0
+    local-url: http://localhost:8080
+    dev-url: http://dev-inventory.mrtripop-int.com
+    stg-url: http://inventory.mrtripop-int.com
+  spotify:
+    url: https://spotify23.p.rapidapi.com
 
 

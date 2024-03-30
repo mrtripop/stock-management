@@ -3,10 +3,14 @@ package com.mrtripop.inventory.controller;
 import java.net.URI;
 import java.util.List;
 
+import com.mrtripop.inventory.constant.ErrorCode;
+import com.mrtripop.inventory.constant.SuccessCode;
+import com.mrtripop.inventory.model.ResponseModel;
 import com.mrtripop.inventory.service.UserService;
 import com.mrtripop.inventory.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,17 +27,29 @@ public class UserController {
   }
 
   @GetMapping
-  public ResponseEntity<List<User>> retrieveUsers(
+  public ResponseEntity<Object> retrieveUsers(
       @RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer size,
       @RequestParam(defaultValue = "asc") String orderBy) {
     try {
       List<User> result = userService.retrieveUsers(page, size, orderBy);
-      log.debug(result.toString());
-      return ResponseEntity.ok(result);
+      log.debug("Retrieve users: {}", result.toString());
+      SuccessCode status = SuccessCode.USER2000_RETRIEVE_USERS_SUCCESS;
+      return ResponseModel.builder()
+          .code(status.getCode())
+          .message(status.getMessage())
+          .data(result)
+          .build()
+          .buildResponseEntity(HttpStatus.OK);
     } catch (Exception e) {
-      log.error(e.getMessage(), e.getCause());
-      return ResponseEntity.status(500).body(null);
+      log.error("Cannot retrieve users: {}", e.getMessage());
+      ErrorCode status = ErrorCode.USER5000_RETRIEVE_USERS_IS_FAILED;
+      return ResponseModel.builder()
+          .code(status.getCode())
+          .message(status.getMessage())
+          .error(e.getMessage())
+          .build()
+          .buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 

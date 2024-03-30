@@ -22,6 +22,9 @@ public class OpenAPIConfig {
   @Value("${config.app.version}")
   private String version;
 
+  @Value("${config.app.local-url}")
+  private String localUrl;
+
   @Value("${config.app.dev-url}")
   private String devUrl;
 
@@ -30,6 +33,10 @@ public class OpenAPIConfig {
 
   @Bean
   public OpenAPI openAPI() {
+    Server localServer = new Server();
+    localServer.setUrl(localUrl);
+    localServer.setDescription("Localhost URL");
+
     Server devServer = new Server();
     devServer.setUrl(devUrl);
     devServer.setDescription("Development URL");
@@ -53,6 +60,6 @@ public class OpenAPIConfig {
             .description("This API exposes endpoints to manage stock.")
             .license(mitLicense);
 
-    return new OpenAPI().info(info).servers(List.of(devServer, stgServer));
+    return new OpenAPI().info(info).servers(List.of(localServer, devServer, stgServer));
   }
 }

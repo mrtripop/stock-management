@@ -15,6 +15,11 @@ for simulate manage stock system feature to know how it's work and what design i
 - [CommitLint](https://www.notion.so/Commitlint-on-local-ea1ec27b07b444f5b1b19d1b5506cbbd)
 - [GPG signing key](https://www.notion.so/Commit-Signature-Verification-5eff1efc706340149c38ef93d3c58a0d)
 
+## Important
+
+If you need to contribute with the project, first step, you need to set up commitlint for verify the commit message.
+I prepare for these steps for setting up by open `terminal` and run `make setup-commitlint`.</br>
+
 ## Basic Knowledge
 
 General
@@ -88,7 +93,9 @@ docker compose down
 
 ## URLs Resource
 
-In this section, we define the API endpoint & URLs for any resource as a Swagger. Please run the service and access API specification via web browser.
+In this section, we define the API endpoint & URLs for any resource as a Swagger. Please run the service and access API
+specification via web browser.
+
 ```shell
 http://localhost:8080/swagger-ui/index.html
 ```

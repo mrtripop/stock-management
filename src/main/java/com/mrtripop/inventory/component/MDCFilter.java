@@ -20,8 +20,9 @@ public class MDCFilter extends OncePerRequestFilter {
   protected void doFilterInternal(
       HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
+    String pathAPI = request.getMethod() + " " + request.getServletPath();
     MDC.put("app_version", version);
-    MDC.put("api_path", request.getServletPath());
+    MDC.put("endpoint", pathAPI);
     try {
       filterChain.doFilter(request, response);
     } finally {
