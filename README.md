@@ -20,42 +20,14 @@ for simulate manage stock system feature to know how it's work and what design i
 If you need to contribute with the project, first step, you need to set up commitlint for verify the commit message.
 I prepare for these steps for setting up by open `terminal` and run `make setup-commitlint`.</br>
 
-## Basic Knowledge
-
-General
-
-- [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/)
-- [Java Code Style Guild](https://www.cs.cornell.edu/courses/JavaAndDS/JavaStyle.html)
-
-Design Pattern
-
-- [Facade](https://refactoring.guru/design-patterns/facade/java/example)
-- [Builder]()
-
-Development
-
-- [Spring Boot](https://spring.io/projects/spring-boot)
-- [Postgresql](https://www.postgresql.org/)
-- [Unit test in Spring Boot]
-- [Integration test in Spring Boot]
-
-Deployment
-
-- [Logging Format - Better Stack](https://betterstack.com/community/guides/logging/log-formatting/)
-- [Log Level]
-- [OpenTelemetry Logging](https://opentelemetry.io/docs/specs/otel/logs/)
-- [Three pillars of Observability](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/ch04.html)
-- [Setup OpenTelemetry in Spring Boot](https://www.notion.so/Setup-OpenTelemetry-in-Spring-Boot-f273e32194af44fda8e46a7fecea9b4e?pvs=4)
-- [Spring Boot with Actuator]
-- [Kubernetes]
-
 ## Configuration
 
 Go to `src/main/resourse` file `application.yml`<br/>
 
-- Datasource url
-    - `localhost` - This for develop not using docker container
-    - `postgres` - This for develop using docker container
+**Datasource Connection**
+
+- `localhost` - Local environment is not using docker network
+- `postgres` - Local environment is using docker network
 
 ## How to run
 
@@ -99,6 +71,48 @@ specification via web browser.
 ```shell
 http://localhost:8080/swagger-ui/index.html
 ```
+
+## Basic Knowledge
+
+**General**
+
+- [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/)
+- [Java Code Style Guild](https://www.cs.cornell.edu/courses/JavaAndDS/JavaStyle.html)
+
+**Principle**
+
+- [SOLID]()
+
+**Design Pattern**
+
+- [Facade](https://refactoring.guru/design-patterns/facade/java/example)
+- [Builder]()
+
+**Development**
+
+- [Spring Boot](https://spring.io/projects/spring-boot)
+- [Postgresql](https://www.postgresql.org/)
+- [Unit test in Spring Boot]()
+- [Integration test in Spring Boot]()
+
+**Deployment**
+
+- [Logging Format - Better Stack](https://betterstack.com/community/guides/logging/log-formatting/)
+- [Log Level]()
+- [OpenTelemetry Logging](https://opentelemetry.io/docs/specs/otel/logs/)
+- [Three pillars of Observability](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/ch04.html)
+- [Setup OpenTelemetry in Spring Boot](https://www.notion.so/Setup-OpenTelemetry-in-Spring-Boot-f273e32194af44fda8e46a7fecea9b4e?pvs=4)
+- [Spring Boot with Actuator]()
+- [Kubernetes]()
+
+## Technical Challenge
+
+- [Race Condition]()
+- [Long live secrets]()
+- [Dead letter message]()
+- [API performance optimize]()
+- [API security]()
+
 
 
 
