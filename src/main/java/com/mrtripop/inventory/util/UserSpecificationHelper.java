@@ -1,12 +1,14 @@
 package com.mrtripop.inventory.util;
 
 import com.mrtripop.inventory.model.User;
+import java.time.ZonedDateTime;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.time.ZonedDateTime;
-
 public class UserSpecificationHelper {
-  public static Specification<User> lastLogin(ZonedDateTime start, ZonedDateTime end) {
+
+  private UserSpecificationHelper() {}
+
+  public static Specification<User> lastLogin(ZonedDateTime start) {
     return (root, query, criteriaBuilder) ->
         criteriaBuilder.between(root.get("last_login"), start, start);
   }
