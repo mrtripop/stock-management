@@ -1,4 +1,4 @@
-package com.mrtripop.inventory.product;
+package com.mrtripop.inventory.product.models;
 
 import jakarta.persistence.*;
 import java.io.Serializable;

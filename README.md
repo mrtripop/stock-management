@@ -78,6 +78,7 @@ http://localhost:8080/swagger-ui/index.html
 
 - [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/)
 - [Java Code Style Guild](https://www.cs.cornell.edu/courses/JavaAndDS/JavaStyle.html)
+- [Read request body in SNAKE](https://stackoverflow.com/questions/70710979/how-to-auto-convert-camel-case-request-body-to-snake-case-protobuf-message-in-sp)
 
 **Principle**
 
@@ -112,6 +113,7 @@ http://localhost:8080/swagger-ui/index.html
 - [Dead letter message]()
 - [API performance optimize]()
 - [API security]()
+- [Aspect Oriented Programming](https://www.baeldung.com/aspectj)
 
 
 
