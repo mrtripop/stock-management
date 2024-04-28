@@ -1,16 +1,16 @@
 package com.mrtripop.inventory.exception;
 
-import com.mrtripop.inventory.constant.ErrorCode;
+import com.mrtripop.inventory.constant.BaseStatusCode;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
 public class GlobalThrowable extends Throwable {
 
-  private final ErrorCode errorCode;
+  private final BaseStatusCode errorCode;
   private final HttpStatus httpStatus;
 
-  public GlobalThrowable(ErrorCode errorCode, HttpStatus httpStatus) {
+  public GlobalThrowable(BaseStatusCode errorCode, HttpStatus httpStatus) {
     this.errorCode = errorCode;
     this.httpStatus = httpStatus;
   }

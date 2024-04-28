@@ -13,8 +13,7 @@ import org.springframework.http.ResponseEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseModel {
-
+public class ResponseBody {
   private String code;
   private String message;
   private Object data;
