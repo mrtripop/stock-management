@@ -1,13 +1,12 @@
-package com.mrtripop.inventory.model;
+package com.mrtripop.inventory.product;
 
 import jakarta.persistence.*;
+import java.io.Serializable;
+import java.time.ZonedDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.io.Serializable;
-import java.time.ZonedDateTime;
 
 @Data
 @Entity
