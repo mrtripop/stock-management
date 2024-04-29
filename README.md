@@ -80,14 +80,15 @@ http://localhost:8080/swagger-ui/index.html
 - [Java Code Style Guild](https://www.cs.cornell.edu/courses/JavaAndDS/JavaStyle.html)
 - [Read request body in SNAKE](https://stackoverflow.com/questions/70710979/how-to-auto-convert-camel-case-request-body-to-snake-case-protobuf-message-in-sp)
 
-**Principle**
+**Code Pattern**
 
 - [SOLID]()
-
-**Design Pattern**
-
 - [Facade](https://refactoring.guru/design-patterns/facade/java/example)
 - [Builder]()
+
+**Design System**
+
+- [Database entity for the inventory management system](https://vertabelo.com/blog/data-model-for-inventory-management-system/)
 
 **Development**
 
@@ -113,7 +114,9 @@ http://localhost:8080/swagger-ui/index.html
 - [Dead letter message]()
 - [API performance optimize]()
 - [API security]()
-- [Aspect Oriented Programming](https://www.baeldung.com/aspectj)
+- Aspect Oriented Programming
+    - https://www.baeldung.com/aspectj
+    - https://www.digitalocean.com/community/tutorials/spring-aop-example-tutorial-aspect-advice-pointcut-joinpoint-annotations
 
 
 

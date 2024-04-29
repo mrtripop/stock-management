@@ -29,7 +29,8 @@ public class ProductController {
   public ResponseEntity<Object> getAllProducts(
       @RequestParam(name = "page", defaultValue = "0", required = false) Integer page,
       @RequestParam(name = "size", defaultValue = "200", required = false) Integer size,
-      @RequestParam(name = "order_by", defaultValue = "ASC", required = false) String orderBy) {
+      @RequestParam(name = "order_by", defaultValue = "ASC", required = false) String orderBy)
+      throws GlobalThrowable {
     try {
       List<Product> products = this.productService.getAllProducts(page, size, orderBy);
       BaseStatusCode successCode = SuccessCode.PRO2001_GET_ALL_PRODUCTS_IS_SUCCESS;
@@ -39,27 +40,20 @@ public class ProductController {
           .data(products)
           .build()
           .buildResponseEntity(HttpStatus.OK);
-
     } catch (Exception e) {
+      log.error("Cannot get all product: {}", e.getMessage());
       BaseStatusCode errorCode = ErrorCode.PRO1001_CANNOT_GET_ALL_PRODUCTS;
       return ResponseBody.builder()
           .code(errorCode.getCode())
           .message(errorCode.getMessage())
           .build()
           .buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-
-    } catch (GlobalThrowable e) {
-      BaseStatusCode errorCode = e.getErrorCode();
-      return ResponseBody.builder()
-          .code(errorCode.getCode())
-          .message(errorCode.getMessage())
-          .build()
-          .buildResponseEntity(e.getHttpStatus());
     }
   }
 
   @GetMapping("/{product_id}")
-  public ResponseEntity<Object> getProductById(@PathVariable(name = "product_id") Long productId) {
+  public ResponseEntity<Object> getProductById(@PathVariable(name = "product_id") Long productId)
+      throws GlobalThrowable {
     try {
       Product product = this.productService.getProductById(productId);
       BaseStatusCode successCode = SuccessCode.PRO2002_GET_PRODUCTS_BY_ID_IS_SUCCESS;
@@ -69,27 +63,20 @@ public class ProductController {
           .data(product)
           .build()
           .buildResponseEntity(HttpStatus.OK);
-
     } catch (Exception e) {
+      log.error("Cannot get the product by ID: {}", e.getMessage());
       BaseStatusCode errorCode = ErrorCode.PRO1001_CANNOT_GET_ALL_PRODUCTS;
       return ResponseBody.builder()
           .code(errorCode.getCode())
           .message(errorCode.getMessage())
           .build()
           .buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-
-    } catch (GlobalThrowable e) {
-      BaseStatusCode errorCode = e.getErrorCode();
-      return ResponseBody.builder()
-          .code(errorCode.getCode())
-          .message(errorCode.getMessage())
-          .build()
-          .buildResponseEntity(e.getHttpStatus());
     }
   }
 
   @PostMapping
-  public ResponseEntity<Object> createNewProduct(@RequestBody Product product) {
+  public ResponseEntity<Object> createNewProduct(@RequestBody Product product)
+      throws GlobalThrowable {
     try {
       Product createdProduct = this.productService.createProduct(product);
       BaseStatusCode successCode = SuccessCode.PRO2003_CREATE_NEW_PRODUCT_IS_SUCCESS;
@@ -99,28 +86,21 @@ public class ProductController {
           .data(createdProduct)
           .build()
           .buildResponseEntity(HttpStatus.CREATED);
-
     } catch (Exception e) {
+      log.error("Cannot create a new product: {}", e.getMessage());
       BaseStatusCode errorCode = ErrorCode.PRO1001_CANNOT_GET_ALL_PRODUCTS;
       return ResponseBody.builder()
           .code(errorCode.getCode())
           .message(errorCode.getMessage())
           .build()
           .buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-
-    } catch (GlobalThrowable e) {
-      BaseStatusCode errorCode = e.getErrorCode();
-      return ResponseBody.builder()
-          .code(errorCode.getCode())
-          .message(errorCode.getMessage())
-          .build()
-          .buildResponseEntity(e.getHttpStatus());
     }
   }
 
   @PutMapping("/{product_id}")
   public ResponseEntity<Object> updateProductById(
-      @PathVariable(name = "product_id") Long productId, @RequestBody Product product) {
+      @PathVariable(name = "product_id") Long productId, @RequestBody Product product)
+      throws GlobalThrowable {
     try {
       Product updatedProduct = productService.updateProduct(productId, product);
       BaseStatusCode successCode = SuccessCode.PRO2004_UPDATE_PRODUCT_IS_SUCCESS;
@@ -130,28 +110,20 @@ public class ProductController {
           .data(updatedProduct)
           .build()
           .buildResponseEntity(HttpStatus.OK);
-
     } catch (Exception e) {
+      log.error("Cannot delete the product by ID: {}", e.getMessage());
       BaseStatusCode errorCode = ErrorCode.PRO1001_CANNOT_GET_ALL_PRODUCTS;
       return ResponseBody.builder()
           .code(errorCode.getCode())
           .message(errorCode.getMessage())
           .build()
           .buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-
-    } catch (GlobalThrowable e) {
-      BaseStatusCode errorCode = e.getErrorCode();
-      return ResponseBody.builder()
-          .code(errorCode.getCode())
-          .message(errorCode.getMessage())
-          .build()
-          .buildResponseEntity(e.getHttpStatus());
     }
   }
 
   @DeleteMapping("/{product_id}")
-  public ResponseEntity<Object> deleteProductById(
-      @PathVariable(name = "product_id") Long productId) {
+  public ResponseEntity<Object> deleteProductById(@PathVariable(name = "product_id") Long productId)
+      throws GlobalThrowable {
     try {
       productService.deleteProduct(productId);
       BaseStatusCode successCode = SuccessCode.PRO2005_DELETE_PRODUCT_IS_SUCCESS;
@@ -160,7 +132,6 @@ public class ProductController {
           .message(successCode.getMessage())
           .build()
           .buildResponseEntity(HttpStatus.OK);
-
     } catch (Exception e) {
       BaseStatusCode errorCode = ErrorCode.PRO1001_CANNOT_GET_ALL_PRODUCTS;
       return ResponseBody.builder()
@@ -168,14 +139,6 @@ public class ProductController {
           .message(errorCode.getMessage())
           .build()
           .buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-
-    } catch (GlobalThrowable e) {
-      BaseStatusCode errorCode = e.getErrorCode();
-      return ResponseBody.builder()
-          .code(errorCode.getCode())
-          .message(errorCode.getMessage())
-          .build()
-          .buildResponseEntity(e.getHttpStatus());
     }
   }
 }

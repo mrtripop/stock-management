@@ -1,13 +1,12 @@
 package com.mrtripop.inventory.controller;
 
-import java.net.URI;
-import java.util.List;
-
 import com.mrtripop.inventory.constant.ErrorCode;
 import com.mrtripop.inventory.constant.SuccessCode;
-import com.mrtripop.inventory.model.ResponseModel;
-import com.mrtripop.inventory.service.UserService;
+import com.mrtripop.inventory.model.ResponseBody;
 import com.mrtripop.inventory.model.User;
+import com.mrtripop.inventory.service.UserService;
+import java.net.URI;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +34,7 @@ public class UserController {
       List<User> result = userService.retrieveUsers(page, size, orderBy);
       log.debug("Retrieve users: {}", result.toString());
       SuccessCode status = SuccessCode.USER2000_RETRIEVE_USERS_SUCCESS;
-      return ResponseModel.builder()
+      return ResponseBody.builder()
           .code(status.getCode())
           .message(status.getMessage())
           .data(result)
@@ -44,7 +43,7 @@ public class UserController {
     } catch (Exception e) {
       log.error("Cannot retrieve users: {}", e.getMessage());
       ErrorCode status = ErrorCode.USER5000_RETRIEVE_USERS_IS_FAILED;
-      return ResponseModel.builder()
+      return ResponseBody.builder()
           .code(status.getCode())
           .message(status.getMessage())
           .error(e.getMessage())
