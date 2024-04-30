@@ -3,9 +3,9 @@ package com.mrtripop.inventory.product.controllers;
 import com.mrtripop.inventory.constant.BaseStatusCode;
 import com.mrtripop.inventory.exception.GlobalThrowable;
 import com.mrtripop.inventory.model.ResponseBody;
-import com.mrtripop.inventory.product.constant.ErrorCode;
+import com.mrtripop.inventory.product.constant.SuccessCode;
 import com.mrtripop.inventory.product.interfaces.ProductHistoryService;
-import com.mrtripop.inventory.product.models.ProductHistory;
+import com.mrtripop.inventory.product.models.ProductDTO;
 import com.mrtripop.inventory.product.services.ProductHistoryServiceImpl;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -31,27 +31,17 @@ public class ProductHistoryController {
       @RequestParam(name = "order_by", defaultValue = "ASC", required = false) String orderBy,
       @PathVariable(name = "product_code") String productCode) {
     try {
-      log.info(
-          "Get all products history by page={}, size={}, and order by={}", page, size, orderBy);
-      List<ProductHistory> result = this.productService.getAllProductsHistory(page, size, orderBy);
-      return new ResponseEntity<>(result, HttpStatus.OK);
-
-    } catch (Exception e) {
-      log.error("Get all products history API error: {}", e.getMessage());
-      BaseStatusCode errorCode = ErrorCode.PRO1001_CANNOT_GET_ALL_PRODUCTS;
+      List<ProductDTO> productHistories =
+          this.productService.getAllProductsHistory(page, size, orderBy);
+      BaseStatusCode statusCode = SuccessCode.PRO2006_GET_ALL_PRODUCT_HISTORIES_IS_SUCCESS;
       return ResponseBody.builder()
-          .code(errorCode.getCode())
-          .message(errorCode.getMessage())
-          .error(e.getCause())
+          .code(statusCode.getCode())
+          .message(statusCode.getMessage())
+          .data(productHistories)
           .build()
-          .buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-
+          .buildResponseEntity(HttpStatus.OK);
     } catch (GlobalThrowable e) {
       BaseStatusCode errorCode = e.getErrorCode();
-      log.error(
-          "Get all products history API error with code: {} and message: {}",
-          errorCode.getCode(),
-          errorCode.getMessage());
       return ResponseBody.builder()
           .code(errorCode.getCode())
           .message(errorCode.getMessage())
