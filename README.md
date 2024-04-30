@@ -79,6 +79,7 @@ http://localhost:8080/swagger-ui/index.html
 - [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/)
 - [Java Code Style Guild](https://www.cs.cornell.edu/courses/JavaAndDS/JavaStyle.html)
 - [Read request body in SNAKE](https://stackoverflow.com/questions/70710979/how-to-auto-convert-camel-case-request-body-to-snake-case-protobuf-message-in-sp)
+- [Data Transfer Object(DTO)](https://www.javaguides.net/2022/12/spring-boot-dto-example-tutorial.html)
 
 **Code Pattern**
 
@@ -116,7 +117,8 @@ http://localhost:8080/swagger-ui/index.html
 - [API security]()
 - Aspect Oriented Programming
     - https://www.baeldung.com/aspectj
-    - https://www.digitalocean.com/community/tutorials/spring-aop-example-tutorial-aspect-advice-pointcut-joinpoint-annotations
+    - [Config Spring AOP](https://www.digitalocean.com/community/tutorials/spring-aop-example-tutorial-aspect-advice-pointcut-joinpoint-annotations)
+    - [Spring AOP for Logging](https://www.baeldung.com/spring-aspect-oriented-programming-logging)
 
 
 

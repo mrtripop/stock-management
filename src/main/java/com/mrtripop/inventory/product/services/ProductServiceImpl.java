@@ -2,7 +2,7 @@ package com.mrtripop.inventory.product.services;
 
 import com.mrtripop.inventory.exception.GlobalThrowable;
 import com.mrtripop.inventory.product.interfaces.ProductService;
-import com.mrtripop.inventory.product.models.Product;
+import com.mrtripop.inventory.product.models.ProductDTO;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,38 +11,38 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-  private final ProductService productService;
+  private final ProductService databaseManager;
 
-  public ProductServiceImpl(DatabaseManagementImpl productService) {
-    this.productService = productService;
+  public ProductServiceImpl(DatabaseManagementImpl databaseManager) {
+    this.databaseManager = databaseManager;
   }
 
   @Override
-  public List<Product> getAllProducts(Integer page, Integer size, String orderBy)
+  public List<ProductDTO> getAllProducts(Integer page, Integer size, String orderBy)
       throws GlobalThrowable {
-    return productService.getAllProducts(page, size, orderBy);
+    return databaseManager.getAllProducts(page, size, orderBy);
   }
 
   @Override
-  public Product getProductById(Long id) throws GlobalThrowable {
-    return productService.getProductById(id);
+  public ProductDTO getProductById(Long id) throws GlobalThrowable {
+    return databaseManager.getProductById(id);
   }
 
   @Override
-  public Product createProduct(Product newProduct) throws GlobalThrowable {
+  public ProductDTO createProduct(ProductDTO newProduct) throws GlobalThrowable {
     // send email or produce queue or something here
-    return productService.createProduct(newProduct);
+    return databaseManager.createProduct(newProduct);
   }
 
   @Override
-  public Product updateProduct(Long id, Product updateProduct) throws GlobalThrowable {
+  public ProductDTO updateProduct(Long id, ProductDTO updateProduct) throws GlobalThrowable {
     // send email or produce queue or something here
-    return productService.updateProduct(id, updateProduct);
+    return databaseManager.updateProduct(id, updateProduct);
   }
 
   @Override
   public void deleteProduct(Long id) throws GlobalThrowable {
     // send email or produce queue or something here
-    productService.deleteProduct(id);
+    databaseManager.deleteProduct(id);
   }
 }
