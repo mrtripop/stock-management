@@ -3,9 +3,9 @@ package com.mrtripop.inventory.product.services;
 import com.mrtripop.inventory.exception.GlobalThrowable;
 import com.mrtripop.inventory.product.component.ProductProcessor;
 import com.mrtripop.inventory.product.constant.ErrorCode;
-import com.mrtripop.inventory.product.interfaces.ProductHistoryService;
-import com.mrtripop.inventory.product.interfaces.ProductService;
+import com.mrtripop.inventory.product.interfaces.DatabaseManagementService;
 import com.mrtripop.inventory.product.models.Product;
+import com.mrtripop.inventory.product.models.ProductDTO;
 import com.mrtripop.inventory.product.models.ProductHistory;
 import com.mrtripop.inventory.product.repository.ProductHistoryRepository;
 import com.mrtripop.inventory.product.repository.ProductRepository;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class DatabaseManagementImpl implements ProductHistoryService, ProductService {
+public class DatabaseManagementImpl implements DatabaseManagementService {
 
   private final ProductRepository productRepository;
   private final ProductHistoryRepository productHistoryRepository;
@@ -33,34 +33,41 @@ public class DatabaseManagementImpl implements ProductHistoryService, ProductSer
   }
 
   @Override
-  public List<ProductHistory> getAllProductsHistory(Integer page, Integer size, String orderBy) {
+  public List<ProductDTO> getAllProductsHistory(Integer page, Integer size, String orderBy) {
     Pageable pageSize = DatabaseHelper.initPageableWithSort(page, size, orderBy);
     Page<ProductHistory> productPages = productHistoryRepository.findAll(pageSize);
-    return productPages.getContent();
+    List<ProductHistory> productHistories = productPages.getContent();
+    return productHistories.stream().map(ProductProcessor::mapToProductDTO).toList();
   }
 
   @Override
-  public List<Product> getAllProducts(Integer page, Integer size, String orderBy) {
+  public List<ProductDTO> getAllProducts(Integer page, Integer size, String orderBy) {
     Pageable pageSize = DatabaseHelper.initPageableWithSort(page, size, orderBy);
     Page<Product> productPages = productRepository.findAll(pageSize);
-    return productPages.getContent();
+    List<Product> products = productPages.getContent();
+    return products.stream().map(ProductProcessor::mapToProductDTO).toList();
   }
 
   @Override
-  public Product getProductById(Long id) throws GlobalThrowable {
-    Optional<Product> product = productRepository.findById(id);
-    return product.orElseThrow(
-        () ->
-            new GlobalThrowable(ErrorCode.PRO1003_CANNOT_GET_PRODUCT_BY_ID, HttpStatus.NOT_FOUND));
+  public ProductDTO getProductById(Long id) throws GlobalThrowable {
+    Optional<Product> haveProduct = productRepository.findById(id);
+    Product product =
+        haveProduct.orElseThrow(
+            () ->
+                new GlobalThrowable(
+                    ErrorCode.PRO1003_CANNOT_GET_PRODUCT_BY_ID, HttpStatus.NOT_FOUND));
+    return ProductProcessor.mapToProductDTO(product);
   }
 
   @Override
   @Transactional(rollbackOn = {GlobalThrowable.class})
-  public Product createProduct(Product product) throws GlobalThrowable {
+  public ProductDTO createProduct(ProductDTO productDTO) throws GlobalThrowable {
     try {
+      Product product = ProductProcessor.mapToProduct(productDTO);
       ProductHistory productHistory = ProductProcessor.toProductHistory(product);
       productHistoryRepository.save(productHistory);
-      return productRepository.save(product);
+      Product productSaved = productRepository.save(product);
+      return ProductProcessor.mapToProductDTO(productSaved);
     } catch (Exception e) {
       throw new GlobalThrowable(
           ErrorCode.PRO1002_CANNOT_CREATE_NEW_PRODUCT, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -69,9 +76,9 @@ public class DatabaseManagementImpl implements ProductHistoryService, ProductSer
 
   @Override
   @Transactional(rollbackOn = {GlobalThrowable.class})
-  public Product updateProduct(Long id, Product updateProduct) throws GlobalThrowable {
+  public ProductDTO updateProduct(Long id, ProductDTO updateProduct) throws GlobalThrowable {
     try {
-      Product existingProduct = getProductById(id);
+      ProductDTO existingProduct = getProductById(id);
       ProductProcessor.updateProduct(existingProduct, updateProduct);
       return createProduct(existingProduct);
     } catch (Exception e) {
@@ -84,7 +91,7 @@ public class DatabaseManagementImpl implements ProductHistoryService, ProductSer
   @Transactional(rollbackOn = {GlobalThrowable.class})
   public void deleteProduct(Long id) throws GlobalThrowable {
     try {
-      Product existingProduct = getProductById(id);
+      ProductDTO existingProduct = getProductById(id);
       productRepository.deleteById(id);
       ProductHistory producthistory = ProductProcessor.toProductHistory(existingProduct);
       producthistory.setIsActive(false);
