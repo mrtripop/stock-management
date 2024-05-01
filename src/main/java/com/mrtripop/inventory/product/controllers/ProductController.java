@@ -10,8 +10,8 @@ import com.mrtripop.inventory.product.services.ProductServiceImpl;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -26,7 +26,7 @@ public class ProductController {
   }
 
   @GetMapping
-  public ResponseEntity<Object> getAllProducts(
+  public HttpEntity<ResponseBody> getAllProducts(
       @RequestParam(name = "page", defaultValue = "0", required = false) Integer page,
       @RequestParam(name = "size", defaultValue = "200", required = false) Integer size,
       @RequestParam(name = "order_by", defaultValue = "ASC", required = false) String orderBy) {
@@ -51,7 +51,8 @@ public class ProductController {
   }
 
   @GetMapping("/{product_id}")
-  public ResponseEntity<Object> getProductById(@PathVariable(name = "product_id") Long productId) {
+  public HttpEntity<ResponseBody> getProductById(
+      @PathVariable(name = "product_id") Long productId) {
     try {
       ProductDTO product = this.productService.getProductById(productId);
       BaseStatusCode successCode = SuccessCode.PRO2002_GET_PRODUCTS_BY_ID_IS_SUCCESS;
@@ -73,7 +74,7 @@ public class ProductController {
   }
 
   @PostMapping
-  public ResponseEntity<Object> createNewProduct(@RequestBody @Valid ProductDTO product) {
+  public HttpEntity<ResponseBody> createNewProduct(@RequestBody @Valid ProductDTO product) {
     try {
       ProductDTO createdProduct = this.productService.createProduct(product);
       BaseStatusCode successCode = SuccessCode.PRO2003_CREATE_NEW_PRODUCT_IS_SUCCESS;
@@ -95,7 +96,7 @@ public class ProductController {
   }
 
   @PutMapping("/{product_id}")
-  public ResponseEntity<Object> updateProductById(
+  public HttpEntity<ResponseBody> updateProductById(
       @PathVariable(name = "product_id") Long productId, @RequestBody @Valid ProductDTO product) {
     try {
       ProductDTO updatedProduct = productService.updateProduct(productId, product);
@@ -118,7 +119,7 @@ public class ProductController {
   }
 
   @DeleteMapping("/{product_id}")
-  public ResponseEntity<Object> deleteProductById(
+  public HttpEntity<ResponseBody> deleteProductById(
       @PathVariable(name = "product_id") Long productId) {
     try {
       productService.deleteProduct(productId);

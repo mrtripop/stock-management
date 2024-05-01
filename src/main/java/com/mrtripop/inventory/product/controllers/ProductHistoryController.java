@@ -9,8 +9,8 @@ import com.mrtripop.inventory.product.models.ProductDTO;
 import com.mrtripop.inventory.product.services.ProductHistoryServiceImpl;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -25,7 +25,7 @@ public class ProductHistoryController {
   }
 
   @GetMapping("/{product_code}/histories")
-  public ResponseEntity<Object> getAllProductsHistory(
+  public HttpEntity<ResponseBody> getAllProductsHistory(
       @RequestParam(name = "page", defaultValue = "0", required = false) Integer page,
       @RequestParam(name = "size", defaultValue = "200", required = false) Integer size,
       @RequestParam(name = "order_by", defaultValue = "ASC", required = false) String orderBy,
