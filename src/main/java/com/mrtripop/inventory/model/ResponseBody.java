@@ -20,7 +20,7 @@ public class ResponseBody {
   private Object data;
   private Object error;
 
-  public HttpEntity<ResponseBody> buildResponseEntity(HttpStatus httpStatus) {
+  public ResponseEntity<Object> buildResponseEntity(HttpStatus httpStatus) {
     return new ResponseEntity<>(new ResponseBody(code, message, data, error), httpStatus);
   }
 }
