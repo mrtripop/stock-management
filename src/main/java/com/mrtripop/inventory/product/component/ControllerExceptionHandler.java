@@ -34,16 +34,6 @@ public class ControllerExceptionHandler {
         .buildResponseEntity(ex.getHttpStatus());
   }
 
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<Object> handleGlobalException(Exception ex) {
-    log.error("Global error: {}", ex.getMessage());
-    return ResponseBody.builder()
-        .code("APP5000")
-        .message("Application is failed")
-        .build()
-        .buildResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-  }
-
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
     List<String> errors =
