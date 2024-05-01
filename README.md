@@ -116,9 +116,10 @@ http://localhost:8080/swagger-ui/index.html
 - [API performance optimize]()
 - [API security]()
 - Aspect Oriented Programming
-    - https://www.baeldung.com/aspectj
     - [Config Spring AOP](https://www.digitalocean.com/community/tutorials/spring-aop-example-tutorial-aspect-advice-pointcut-joinpoint-annotations)
     - [Spring AOP for Logging](https://www.baeldung.com/spring-aspect-oriented-programming-logging)
+    - [Spring docs @ControllerAdvice](https://docs.spring.io/spring-framework/reference/web/webflux/controller/ann-advice.html)
+    - [Github issue @ControllerAdvice](https://github.com/spring-projects/spring-framework/issues/25070)
 
 
 
