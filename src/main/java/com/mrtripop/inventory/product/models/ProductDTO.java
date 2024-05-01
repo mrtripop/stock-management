@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 @Data
 @Builder
@@ -33,7 +34,7 @@ public class ProductDTO {
   @NotEmpty(message = "Category must not be empty")
   @NotBlank(message = "Category must not be blank")
   @NotNull(message = "Packed depth must not be null")
-  @Max(value = 500, message = "Description is maximum with 500 character")
+  @Length(max = 300, message = "Description is maximum with 300 character")
   private String description;
 
   @NotEmpty(message = "Category must not be empty")
