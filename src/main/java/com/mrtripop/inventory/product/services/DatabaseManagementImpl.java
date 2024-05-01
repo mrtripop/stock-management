@@ -98,7 +98,7 @@ public class DatabaseManagementImpl implements DatabaseManagementService {
       productHistoryRepository.save(producthistory);
     } catch (Exception e) {
       throw new GlobalThrowable(
-          ErrorCode.PRO1005_CANNOT_UPDATE_EXISTING_PRODUCT, HttpStatus.INTERNAL_SERVER_ERROR);
+          ErrorCode.PRO1005_CANNOT_DELETE_EXISTING_PRODUCT, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
