@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -19,7 +20,7 @@ public class ResponseBody {
   private Object data;
   private Object error;
 
-  public ResponseEntity<Object> buildResponseEntity(HttpStatus httpStatus) {
-    return new ResponseEntity<>(this, httpStatus);
+  public HttpEntity<ResponseBody> buildResponseEntity(HttpStatus httpStatus) {
+    return new ResponseEntity<>(new ResponseBody(code, message, data, error), httpStatus);
   }
 }
