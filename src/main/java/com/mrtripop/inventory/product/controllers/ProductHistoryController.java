@@ -3,6 +3,7 @@ package com.mrtripop.inventory.product.controllers;
 import com.mrtripop.inventory.constant.BaseStatusCode;
 import com.mrtripop.inventory.exception.GlobalThrowable;
 import com.mrtripop.inventory.model.ResponseBody;
+import com.mrtripop.inventory.product.constant.ErrorCode;
 import com.mrtripop.inventory.product.constant.SuccessCode;
 import com.mrtripop.inventory.product.interfaces.ProductHistoryService;
 import com.mrtripop.inventory.product.models.ProductDTO;
@@ -31,14 +32,20 @@ public class ProductHistoryController {
       @RequestParam(name = "order_by", defaultValue = "ASC", required = false) String orderBy,
       @PathVariable(name = "product_code") String productCode)
       throws GlobalThrowable {
-    List<ProductDTO> productHistories =
-        this.productService.getAllProductsHistory(page, size, orderBy);
-    BaseStatusCode statusCode = SuccessCode.PRO2006_GET_ALL_PRODUCT_HISTORIES_IS_SUCCESS;
-    return ResponseBody.builder()
-        .code(statusCode.getCode())
-        .message(statusCode.getMessage())
-        .data(productHistories)
-        .build()
-        .buildResponseEntity(HttpStatus.OK);
+    try {
+      List<ProductDTO> productHistories =
+          this.productService.getAllProductsHistory(page, size, orderBy);
+      BaseStatusCode statusCode = SuccessCode.PRO2006_GET_ALL_PRODUCT_HISTORIES_IS_SUCCESS;
+      return ResponseBody.builder()
+          .code(statusCode.getCode())
+          .message(statusCode.getMessage())
+          .data(productHistories)
+          .build()
+          .buildResponseEntity(HttpStatus.OK);
+    } catch (Exception e) {
+      log.error("Cannot get all product histories: {}", e.getMessage());
+      throw new GlobalThrowable(
+          ErrorCode.PRO1007_CANNOT_GET_ALL_PRODUCT_HISTORIES, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }

@@ -8,7 +8,8 @@ public enum ErrorCode implements BaseStatusCode {
   PRO1003_CANNOT_GET_PRODUCT_BY_ID("PRO1003", "Cannot get product by ID"),
   PRO1004_CANNOT_UPDATE_EXISTING_PRODUCT("PRO1004", "Cannot update existing product"),
   PRO1005_CANNOT_DELETE_EXISTING_PRODUCT("PRO1005", "Cannot delete the product"),
-  PRO1006_PRODUCT_REQUEST_BODY_IS_NOT_VALID("PRO1006", "Product request body is not valid");
+  PRO1006_PRODUCT_REQUEST_BODY_IS_NOT_VALID("PRO1006", "Product request body is not valid"),
+  PRO1007_CANNOT_GET_ALL_PRODUCT_HISTORIES("PRO1007", "Cannot get all products histories");
   private final String code;
   private final String message;
 
