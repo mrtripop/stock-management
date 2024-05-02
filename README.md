@@ -110,16 +110,27 @@ http://localhost:8080/swagger-ui/index.html
 
 ## Technical Challenge
 
-- [Race Condition]()
-- [Long live secrets]()
-- [Dead letter message]()
-- [API performance optimize]()
-- [API security]()
+**Spring Boot**
+
+- API Security
+    - [Long live secrets]()
+- API Performance
+    - Redis Cache
 - Aspect Oriented Programming
+    - [Spring AOP Tutorial](https://howtodoinjava.com/spring-aop-tutorial/)
     - [Config Spring AOP](https://www.digitalocean.com/community/tutorials/spring-aop-example-tutorial-aspect-advice-pointcut-joinpoint-annotations)
     - [Spring AOP for Logging](https://www.baeldung.com/spring-aspect-oriented-programming-logging)
     - [Spring docs @ControllerAdvice](https://docs.spring.io/spring-framework/reference/web/webflux/controller/ann-advice.html)
     - [Github issue @ControllerAdvice](https://github.com/spring-projects/spring-framework/issues/25070)
+- Race Condition
+
+**Redis Cache**
+
+- Other
+
+**RabbitMQ**
+
+- Dead letter message
 
 
 
