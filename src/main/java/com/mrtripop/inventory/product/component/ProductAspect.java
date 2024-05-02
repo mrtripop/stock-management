@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 public class ProductAspect {
 
   @Pointcut("execution(public * com.mrtripop.inventory.product.*.*.*(..))")
-  private void publicMethodsEntireApplication() {}
+  private void publicLoggingMethodPointcut() {}
 
-  @Around(value = "publicMethodsEntireApplication()")
+  @Around(value = "publicLoggingMethodPointcut()")
   public Object handleLogMessageEntireApplication(ProceedingJoinPoint joinPoint) throws Throwable {
     Object[] args = joinPoint.getArgs();
     String className = joinPoint.getTarget().getClass().getSimpleName();
