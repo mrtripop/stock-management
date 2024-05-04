@@ -11,6 +11,9 @@ import com.mrtripop.inventory.product.services.ProductServiceImpl;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +52,7 @@ public class ProductController {
   }
 
   @GetMapping("/{product_id}")
+  @Cacheable(value = "product", key = "#product_id", unless = "#result==null")
   public ResponseEntity<Object> getProductById(@PathVariable(name = "product_id") Long productId)
       throws GlobalThrowable {
     try {
@@ -87,6 +91,7 @@ public class ProductController {
   }
 
   @PutMapping("/{product_id}")
+  @CachePut(value = "product", key = "#product_id")
   public ResponseEntity<Object> updateProductById(
       @PathVariable(name = "product_id") Long productId, @RequestBody @Valid ProductDTO product)
       throws GlobalThrowable {
@@ -107,6 +112,7 @@ public class ProductController {
   }
 
   @DeleteMapping("/{product_id}")
+  @CacheEvict(value = "product", allEntries = true)
   public ResponseEntity<Object> deleteProductById(@PathVariable(name = "product_id") Long productId)
       throws GlobalThrowable {
     try {
