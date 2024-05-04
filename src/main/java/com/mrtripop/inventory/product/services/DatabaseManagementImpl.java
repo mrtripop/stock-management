@@ -69,6 +69,7 @@ public class DatabaseManagementImpl implements DatabaseManagementService {
       Product productSaved = productRepository.save(product);
       return ProductProcessor.mapToProductDTO(productSaved);
     } catch (Exception e) {
+      log.error("Cannot create a new product: {}", e.getMessage());
       throw new GlobalThrowable(
           ErrorCode.PRO1002_CANNOT_CREATE_NEW_PRODUCT, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -82,6 +83,7 @@ public class DatabaseManagementImpl implements DatabaseManagementService {
       ProductProcessor.updateProduct(existingProduct, updateProduct);
       return createProduct(existingProduct);
     } catch (Exception e) {
+      log.error("Cannot update product ID='{}': {}", id, e.getMessage());
       throw new GlobalThrowable(
           ErrorCode.PRO1004_CANNOT_UPDATE_EXISTING_PRODUCT, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -97,6 +99,7 @@ public class DatabaseManagementImpl implements DatabaseManagementService {
       producthistory.setIsActive(false);
       productHistoryRepository.save(producthistory);
     } catch (Exception e) {
+      log.error("Cannot delete product ID='{}': {}", id, e.getMessage());
       throw new GlobalThrowable(
           ErrorCode.PRO1005_CANNOT_DELETE_EXISTING_PRODUCT, HttpStatus.INTERNAL_SERVER_ERROR);
     }

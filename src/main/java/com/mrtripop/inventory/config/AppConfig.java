@@ -1,5 +1,9 @@
 package com.mrtripop.inventory.config;
 
+import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.OpenTelemetry;
+import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -7,4 +11,15 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Configuration
 @EnableAspectJAutoProxy
 @ComponentScan("com.mrtripop.inventory.product.component")
-public class AppConfig {}
+public class AppConfig {
+
+  @Bean
+  public OpenTelemetry openTelemetry() {
+    return GlobalOpenTelemetry.get();
+  }
+
+  @Bean
+  public ModelMapper modelMapper() {
+    return new ModelMapper();
+  }
+}

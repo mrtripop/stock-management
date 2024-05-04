@@ -26,8 +26,26 @@ Go to `src/main/resourse` file `application.yml`<br/>
 
 **Datasource Connection**
 
+Port `5432` is default port of the PostgreSQL
+
 - `localhost` - Local environment is not using docker network
 - `postgres` - Local environment is using docker network
+
+Credentials of the PostgreSQL to establish connection
+
+- `postgres` is a setting value for `username` and `password`
+
+**Redis Connection**
+
+Port `6379` is default port of the Redis
+
+- `localhost` - Local environment is not using docker network
+- `redis` - Local environment is using docker network
+
+Credentials of the Redis to establish connection
+
+- `default` is default username of the Redis.
+- `redis` is setting value in the docker compose `--requirepass` argument
 
 ## How to run
 
@@ -113,9 +131,10 @@ http://localhost:8080/swagger-ui/index.html
 **Spring Boot**
 
 - API Security
-    - [Long live secrets]()
+    - [Long-live Credentials]
+    - [Authentication & Authorization]
 - API Performance
-    - Redis Cache
+    - [Spring Data Redis](https://docs.spring.io/spring-data/redis/reference/redis.html)
 - Aspect Oriented Programming
     - [Spring AOP Tutorial](https://howtodoinjava.com/spring-aop-tutorial/)
     - [Config Spring AOP](https://www.digitalocean.com/community/tutorials/spring-aop-example-tutorial-aspect-advice-pointcut-joinpoint-annotations)
@@ -126,11 +145,17 @@ http://localhost:8080/swagger-ui/index.html
 
 **Redis Cache**
 
-- Other
+- [Connect to Redis server via Redisinsight](https://stackoverflow.com/questions/64295255/redisinsight-on-docker-and-redis-on-docker-could-not-connect-error-99-connecti)
+- [Redis Sentinal]
+- [Redis Cluster with Leader-Follower]
 
 **RabbitMQ**
 
-- Dead letter message
+- [Dead-Letter Message]
+
+## Reference
+
+- [Redisinsight tool](https://hub.docker.com/r/redis/redisinsight)
 
 
 

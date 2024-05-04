@@ -1,32 +1,34 @@
 package com.mrtripop.inventory.product.component;
 
+import com.mrtripop.inventory.exception.GlobalThrowable;
+import com.mrtripop.inventory.product.constant.ErrorCode;
 import com.mrtripop.inventory.product.models.Product;
 import com.mrtripop.inventory.product.models.ProductDTO;
 import com.mrtripop.inventory.product.models.ProductHistory;
+import com.mrtripop.inventory.util.Utils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 
+@Slf4j
 public class ProductProcessor {
 
   private ProductProcessor() {}
 
-  public static ProductHistory toProductHistory(ProductDTO productDTO) {
+  public static ProductHistory toProductHistory(ProductDTO productDTO) throws GlobalThrowable {
     Product product = mapToProduct(productDTO);
     return toProductHistory(product);
   }
 
-  public static ProductHistory toProductHistory(Product product) {
-    return ProductHistory.builder()
-        .code(product.getCode())
-        .barcode(product.getBarcode())
-        .name(product.getName())
-        .description(product.getDescription())
-        .category(product.getCategory())
-        .reorderQuantity(product.getReorderQuantity())
-        .packedWeight(product.getPackedWeight())
-        .packedHeight(product.getPackedHeight())
-        .packedWidth(product.getPackedWidth())
-        .packedDepth(product.getPackedDepth())
-        .isActive(product.getIsActive())
-        .build();
+  public static ProductHistory toProductHistory(Product product) throws GlobalThrowable {
+    try {
+      String productHistory = Utils.writeString(product);
+      return Utils.readValue(productHistory, ProductHistory.class);
+    } catch (Exception e) {
+      log.error("Cannot convert the product to product history: {}", e.getMessage());
+      throw new GlobalThrowable(
+          ErrorCode.PRO1008_CANNOT_CONVERT_PRODUCT_TO_PRODUCT_HISTORY,
+          HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   public static void updateProduct(ProductDTO oldProduct, ProductDTO newProduct) {
@@ -43,54 +45,26 @@ public class ProductProcessor {
     oldProduct.setIsActive(newProduct.getIsActive());
   }
 
-  public static Product mapToProduct(ProductDTO productDTO) {
-    return Product.builder()
-        .id(productDTO.getId())
-        .code(productDTO.getCode())
-        .barcode(productDTO.getBarcode())
-        .name(productDTO.getName())
-        .description(productDTO.getDescription())
-        .category(productDTO.getCategory())
-        .reorderQuantity(productDTO.getReorderQuantity())
-        .packedWeight(productDTO.getPackedWeight())
-        .packedHeight(productDTO.getPackedHeight())
-        .packedWidth(productDTO.getPackedWidth())
-        .packedDepth(productDTO.getPackedDepth())
-        .isActive(productDTO.getIsActive())
-        .build();
+  public static Product mapToProduct(Object productDTO) throws GlobalThrowable {
+    try {
+      String product = Utils.writeString(productDTO);
+      return Utils.readValue(product, Product.class);
+    } catch (Exception e) {
+      log.error("Cannot convert the product DTO to product object: {}", e.getMessage());
+      throw new GlobalThrowable(
+          ErrorCode.PRO1009_CANNOT_CONVERT_PRODUCT_TO_PRODUCT_HISTORY,
+          HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
-  public static ProductDTO mapToProductDTO(Product product) {
-    return ProductDTO.builder()
-        .id(product.getId())
-        .code(product.getCode())
-        .barcode(product.getBarcode())
-        .name(product.getName())
-        .description(product.getDescription())
-        .category(product.getCategory())
-        .reorderQuantity(product.getReorderQuantity())
-        .packedWeight(product.getPackedWeight())
-        .packedHeight(product.getPackedHeight())
-        .packedWidth(product.getPackedWidth())
-        .packedDepth(product.getPackedDepth())
-        .isActive(product.getIsActive())
-        .build();
-  }
-
-  public static ProductDTO mapToProductDTO(ProductHistory productHistory) {
-    return ProductDTO.builder()
-        .id(productHistory.getId())
-        .code(productHistory.getCode())
-        .barcode(productHistory.getBarcode())
-        .name(productHistory.getName())
-        .description(productHistory.getDescription())
-        .category(productHistory.getCategory())
-        .reorderQuantity(productHistory.getReorderQuantity())
-        .packedWeight(productHistory.getPackedWeight())
-        .packedHeight(productHistory.getPackedHeight())
-        .packedWidth(productHistory.getPackedWidth())
-        .packedDepth(productHistory.getPackedDepth())
-        .isActive(productHistory.getIsActive())
-        .build();
+  public static ProductDTO mapToProductDTO(Object product) {
+    try {
+      String publicString = Utils.writeString(product);
+      return Utils.readValue(publicString, ProductDTO.class);
+    } catch (Exception e) {
+      log.error("Cannot convert the product object to product DTO: {}", e.getMessage());
+      throw new RuntimeException(
+          ErrorCode.PRO1010_CANNOT_CONVERT_PRODUCT_OBJECT_TO_PRODUCT_DTO.getMessage());
+    }
   }
 }

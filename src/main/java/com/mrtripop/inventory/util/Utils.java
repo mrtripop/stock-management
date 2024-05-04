@@ -7,7 +7,7 @@ public class Utils {
 
   private Utils() {}
 
-  private static ObjectMapper mapper;
+  private static final ObjectMapper mapper = new ObjectMapper();
 
   public static String writeString(Object input) throws JsonProcessingException {
     return mapper.writeValueAsString(input);
