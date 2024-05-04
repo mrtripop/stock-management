@@ -14,15 +14,25 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-    show-sql: false
+        format_sql: ${JPA_PROPERTIES_HIBERNATE_FORMAT_SQL}
+    show-sql: ${JPA_PROPERTIES_SHOW_SQL}
   main:
     web-application-type: servlet
+  cache:
+    type: redis
+    redis:
+      time-to-live: ${CACHE_REDIS_TTL}
+  data:
+    redis:
+      url: ${REDIS_URL}
+      username: ${REDIS_USERNAME}
+      password: ${REDIS_PASSWORD}
+      timeout: ${REDIS_TIMEOUT}
 
 logging:
   level:
     com:
-      learn: DEBUG
+      mrtripop: ${LOGGING_LEVEL_COM_MRTRIPOP}
     org:
       hibernate: INFO
 
