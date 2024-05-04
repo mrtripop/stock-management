@@ -31,7 +31,6 @@ public class DatabaseHelper {
 
   public static Pageable initPageableWithSort(Integer page, Integer size, String orderBy) {
     PageRequest pageRequest = initPageable(page, size);
-    log.info(pageRequest.toString());
     return initSortOrder(pageRequest, orderBy);
   }
 }

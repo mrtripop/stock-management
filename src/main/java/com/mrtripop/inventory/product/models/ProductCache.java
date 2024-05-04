@@ -7,22 +7,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.redis.core.RedisHash;
 
 @Data
-@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(
-    name = "product",
-    indexes = {
-      @Index(name = "product_code", columnList = "code"),
-      @Index(name = "product_created_at", columnList = "created_at"),
-      @Index(name = "product_updated_at", columnList = "updated_at"),
-    })
-@EntityListeners(AuditingEntityListener.class)
-public class Product {
+@RedisHash("product")
+public class ProductCache {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq")
