@@ -5,6 +5,9 @@ import com.mrtripop.inventory.product.interfaces.ProductService;
 import com.mrtripop.inventory.product.models.ProductDTO;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -24,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
+  @Cacheable(value = "product", key = "#id", unless = "#result==null")
   public ProductDTO getProductById(Long id) throws GlobalThrowable {
     return databaseManager.getProductById(id);
   }
@@ -35,12 +39,14 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
+  @CachePut(value = "product", key = "#id")
   public ProductDTO updateProduct(Long id, ProductDTO updateProduct) throws GlobalThrowable {
     // send email or produce queue or something here
     return databaseManager.updateProduct(id, updateProduct);
   }
 
   @Override
+  @CacheEvict(value = "product", allEntries = true)
   public void deleteProduct(Long id) throws GlobalThrowable {
     // send email or produce queue or something here
     databaseManager.deleteProduct(id);
