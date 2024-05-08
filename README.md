@@ -168,6 +168,7 @@ http://localhost:8080/swagger-ui/index.html
 
 ## Reference
 
+- [PostgreSQL with docker volume](https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/)
 - [Redisinsight tool](https://hub.docker.com/r/redis/redisinsight)
 
 
