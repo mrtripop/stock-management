@@ -143,6 +143,19 @@ http://localhost:8080/swagger-ui/index.html
     - [Github issue @ControllerAdvice](https://github.com/spring-projects/spring-framework/issues/25070)
 - Race Condition
 
+**Spring Email**
+
+- [Amazon SES](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#just-verify-email-proc)
+- [Baedung Spring Email](https://www.baeldung.com/spring-email)
+
+**Spring Data JPA**
+
+- [Getting started with Spring Data JPA](https://spring.io/blog/2011/02/10/getting-started-with-spring-data-jpa)
+- [Advanced Spring Data JPA - Specifications and Querydls](https://spring.io/blog/2011/04/26/advanced-spring-data-jpa-specifications-and-querydsl)
+- [Advanced Spring Data JPA - Specification](https://docs.spring.io/spring-data/jpa/reference/jpa/specifications.html)
+- [JPA Metamodel Generator](https://docs.jboss.org/hibernate/jpamodelgen/1.0/reference/en-US/html_single/#whatisit)
+- [JPA Metamodel Generator - Baedung](https://www.baeldung.com/hibernate-criteria-queries-metamodel)
+
 **Redis Cache**
 
 - [Connect to Redis server via Redisinsight](https://stackoverflow.com/questions/64295255/redisinsight-on-docker-and-redis-on-docker-could-not-connect-error-99-connecti)
