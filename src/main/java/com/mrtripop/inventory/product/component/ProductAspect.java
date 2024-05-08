@@ -21,9 +21,9 @@ public class ProductAspect {
     Object[] args = joinPoint.getArgs();
     String className = joinPoint.getTarget().getClass().getSimpleName();
     String methodName = joinPoint.getSignature().getName();
-    log.debug(">> {}.{}({})", className, methodName, Arrays.toString(args));
+    log.debug("In: {}.{}({})", className, methodName, Arrays.toString(args));
     Object result = joinPoint.proceed();
-    log.debug("<< {}.{}: {}", className, methodName, result);
+    log.debug("Out: {}.{}: {}", className, methodName, result);
     return result;
   }
 }
