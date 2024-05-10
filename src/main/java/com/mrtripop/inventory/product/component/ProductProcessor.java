@@ -2,9 +2,9 @@ package com.mrtripop.inventory.product.component;
 
 import com.mrtripop.inventory.exception.GlobalThrowable;
 import com.mrtripop.inventory.product.constant.ErrorCode;
-import com.mrtripop.inventory.product.models.Product;
+import com.mrtripop.inventory.product.models.db.Product;
 import com.mrtripop.inventory.product.models.ProductDTO;
-import com.mrtripop.inventory.product.models.ProductHistory;
+import com.mrtripop.inventory.product.models.db.ProductHistory;
 import com.mrtripop.inventory.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

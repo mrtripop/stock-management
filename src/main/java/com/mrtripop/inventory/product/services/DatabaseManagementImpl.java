@@ -3,25 +3,26 @@ package com.mrtripop.inventory.product.services;
 import com.mrtripop.inventory.exception.GlobalThrowable;
 import com.mrtripop.inventory.product.component.ProductProcessor;
 import com.mrtripop.inventory.product.constant.ErrorCode;
-import com.mrtripop.inventory.product.interfaces.DatabaseManagementService;
-import com.mrtripop.inventory.product.models.Product;
+import com.mrtripop.inventory.product.interfaces.ProductService;
 import com.mrtripop.inventory.product.models.ProductDTO;
-import com.mrtripop.inventory.product.models.ProductHistory;
+import com.mrtripop.inventory.product.models.db.Product;
+import com.mrtripop.inventory.product.models.db.ProductHistory;
 import com.mrtripop.inventory.product.repository.ProductHistoryRepository;
 import com.mrtripop.inventory.product.repository.ProductRepository;
-import com.mrtripop.inventory.util.DatabaseHelper;
+import com.mrtripop.inventory.product.util.ProductUtil;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class DatabaseManagementImpl implements DatabaseManagementService {
+public class DatabaseManagementImpl implements ProductService {
 
   private final ProductRepository productRepository;
   private final ProductHistoryRepository productHistoryRepository;
@@ -33,16 +34,8 @@ public class DatabaseManagementImpl implements DatabaseManagementService {
   }
 
   @Override
-  public List<ProductDTO> getAllProductsHistory(Integer page, Integer size, String orderBy) {
-    Pageable pageSize = DatabaseHelper.initPageableWithSort(page, size, orderBy);
-    Page<ProductHistory> productPages = productHistoryRepository.findAll(pageSize);
-    List<ProductHistory> productHistories = productPages.getContent();
-    return productHistories.stream().map(ProductProcessor::mapToProductDTO).toList();
-  }
-
-  @Override
-  public List<ProductDTO> getAllProducts(Integer page, Integer size, String orderBy) {
-    Pageable pageSize = DatabaseHelper.initPageableWithSort(page, size, orderBy);
+  public List<ProductDTO> getProducts(Integer page, Integer size, Sort.Direction orderBy) {
+    Pageable pageSize = ProductUtil.initPageableWithSort(page, size, orderBy);
     Page<Product> productPages = productRepository.findAll(pageSize);
     List<Product> products = productPages.getContent();
     return products.stream().map(ProductProcessor::mapToProductDTO).toList();

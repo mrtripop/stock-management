@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -21,9 +22,9 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public List<ProductDTO> getAllProducts(Integer page, Integer size, String orderBy)
+  public List<ProductDTO> getProducts(Integer page, Integer size, Sort.Direction orderBy)
       throws GlobalThrowable {
-    return databaseManager.getAllProducts(page, size, orderBy);
+    return databaseManager.getProducts(page, size, orderBy);
   }
 
   @Override

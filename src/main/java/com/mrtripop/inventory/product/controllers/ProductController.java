@@ -11,6 +11,7 @@ import com.mrtripop.inventory.product.services.ProductServiceImpl;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,8 @@ public class ProductController {
   public ResponseEntity<Object> getAllProducts(
       @RequestParam(name = "page", defaultValue = "0", required = false) Integer page,
       @RequestParam(name = "size", defaultValue = "200", required = false) Integer size,
-      @RequestParam(name = "order_by", defaultValue = "ASC", required = false) String orderBy)
+      @RequestParam(name = "order_by", defaultValue = "ASC", required = false)
+          Sort.Direction orderBy)
       throws GlobalThrowable {
     try {
       List<ProductDTO> products = this.productService.getAllProducts(page, size, orderBy);

@@ -1,4 +1,4 @@
-package com.mrtripop.inventory.product.models;
+package com.mrtripop.inventory.product.models.db;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
