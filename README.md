@@ -170,6 +170,7 @@ http://localhost:8080/swagger-ui/index.html
 
 - [PostgreSQL with docker volume](https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/)
 - [Redisinsight tool](https://hub.docker.com/r/redis/redisinsight)
+- [No validator could be found for constraint 'NotEmpty' validating type 'Integer'](https://stackoverflow.com/a/56096275/22370509)
 
 
 
