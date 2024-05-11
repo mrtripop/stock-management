@@ -13,8 +13,10 @@ import org.springframework.context.MessageSourceResolvable;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.*;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +36,17 @@ public class ControllerExceptionHandler {
         .message(errorCode.getMessage())
         .build()
         .buildResponseEntity(ex.getHttpStatus());
+  }
+
+  @ExceptionHandler({HttpMessageNotReadableException.class, MissingPathVariableException.class})
+  public ResponseEntity<Object> handleException(Exception ex) {
+    BaseStatusCode errorCode = ErrorCode.GB4044_GLOBAL_ERROR_IS_OCCURRED;
+    return ResponseBody.builder()
+        .code(errorCode.getCode())
+        .message(errorCode.getMessage())
+        .error(ex.getMessage())
+        .build()
+        .buildResponseEntity(HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -69,7 +82,6 @@ public class ControllerExceptionHandler {
   @ExceptionHandler(MethodArgumentTypeMismatchException.class)
   public ResponseEntity<Object> handleMethodArgumentTypeMismatch(
       MethodArgumentTypeMismatchException ex) {
-
     BaseStatusCode errorCode = ErrorCode.GB4043_QUERY_PARAMETER_IS_NOT_VALID;
     return ResponseBody.builder()
         .code(errorCode.getCode())
