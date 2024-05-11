@@ -9,6 +9,8 @@ import com.mrtripop.inventory.product.interfaces.ProductService;
 import com.mrtripop.inventory.product.models.ProductDTO;
 import com.mrtripop.inventory.product.services.ProductServiceImpl;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -28,14 +30,21 @@ public class ProductController {
   }
 
   @GetMapping
-  public ResponseEntity<Object> getAllProducts(
-      @RequestParam(name = "page", defaultValue = "0", required = false) Integer page,
-      @RequestParam(name = "size", defaultValue = "200", required = false) Integer size,
+  public ResponseEntity<Object> getProducts(
+      @RequestParam(name = "page", defaultValue = "1", required = false)
+          @Min(value = 1, message = "Page query param must not less than one")
+          @NotNull(message = "Page query param must not be null")
+          Integer page,
+      @RequestParam(name = "size", defaultValue = "200", required = false)
+          @Min(value = 1, message = "Size query param must not less than one")
+          @NotNull(message = "Size query param must not be null")
+          Integer size,
       @RequestParam(name = "order_by", defaultValue = "ASC", required = false)
+          @NotNull(message = "Order by query param must not be null")
           Sort.Direction orderBy)
       throws GlobalThrowable {
     try {
-      List<ProductDTO> products = this.productService.getAllProducts(page, size, orderBy);
+      List<ProductDTO> products = this.productService.getProducts(page, size, orderBy);
       BaseStatusCode successCode = SuccessCode.PRO2001_GET_ALL_PRODUCTS_IS_SUCCESS;
       return ResponseBody.builder()
           .code(successCode.getCode())
@@ -51,7 +60,11 @@ public class ProductController {
   }
 
   @GetMapping("/{product_id}")
-  public ResponseEntity<Object> getProductById(@PathVariable(name = "product_id") Long productId)
+  public ResponseEntity<Object> getProductById(
+      @PathVariable(name = "product_id")
+          @Min(value = 1, message = "Product ID must not less than one")
+          @NotNull(message = "Product ID must not be null")
+          Long productId)
       throws GlobalThrowable {
     try {
       ProductDTO product = this.productService.getProductById(productId);
@@ -90,7 +103,11 @@ public class ProductController {
 
   @PutMapping("/{product_id}")
   public ResponseEntity<Object> updateProductById(
-      @PathVariable(name = "product_id") Long productId, @RequestBody @Valid ProductDTO product)
+      @PathVariable(name = "product_id")
+          @Min(value = 1, message = "Product ID must not less than one")
+          @NotNull(message = "Product ID must not be null")
+          Long productId,
+      @RequestBody @Valid ProductDTO product)
       throws GlobalThrowable {
     try {
       ProductDTO updatedProduct = productService.updateProduct(productId, product);
@@ -109,7 +126,11 @@ public class ProductController {
   }
 
   @DeleteMapping("/{product_id}")
-  public ResponseEntity<Object> deleteProductById(@PathVariable(name = "product_id") Long productId)
+  public ResponseEntity<Object> deleteProductById(
+      @PathVariable(name = "product_id")
+          @Min(value = 1, message = "Product ID must not less than one")
+          @NotNull(message = "Product ID must not be null")
+          Long productId)
       throws GlobalThrowable {
     try {
       productService.deleteProduct(productId);
