@@ -33,15 +33,15 @@ public class ProductDTO {
   @NotNull(message = "Product name must not be null")
   private String name;
 
-  @NotEmpty(message = "Category must not be empty")
-  @NotBlank(message = "Category must not be blank")
-  @NotNull(message = "Packed depth must not be null")
+  @NotEmpty(message = "Description must not be empty")
+  @NotBlank(message = "Description must not be blank")
+  @NotNull(message = "Description must not be null")
   @Length(max = 300, message = "Description is maximum with 300 character")
   private String description;
 
   @NotEmpty(message = "Category must not be empty")
   @NotBlank(message = "Category must not be blank")
-  @NotNull(message = "Packed depth must not be null")
+  @NotNull(message = "Category must not be null")
   private String category;
 
   @Min(value = 0, message = "Re-order quantity minimum is zero")
