@@ -128,6 +128,10 @@ http://localhost:8080/swagger-ui/index.html
 
 ## Technical Challenge
 
+**Java**
+
+- [BigDecimal ใน Java](https://medium.com/@mrtripop/ทำความรู้จักกับ-bigdecimalใน-java-กัน-a8fe3cd26640)
+
 **Spring Boot**
 
 - API Security
