@@ -107,7 +107,8 @@ http://localhost:8080/swagger-ui/index.html
 
 **Design System**
 
-- [Database entity for the inventory management system](https://vertabelo.com/blog/data-model-for-inventory-management-system/)
+- [Database Entity of Inventory System](https://vertabelo.com/blog/data-model-for-inventory-management-system/)
+- [Writing Address in English](https://medium.com/@pakapolper/writing-an-address-in-english-29dfbdc3d1ba)
 
 **Development**
 
@@ -159,6 +160,7 @@ http://localhost:8080/swagger-ui/index.html
 - [Advanced Spring Data JPA - Specification](https://docs.spring.io/spring-data/jpa/reference/jpa/specifications.html)
 - [JPA Metamodel Generator](https://docs.jboss.org/hibernate/jpamodelgen/1.0/reference/en-US/html_single/#whatisit)
 - [JPA Metamodel Generator - Baedung](https://www.baeldung.com/hibernate-criteria-queries-metamodel)
+- [Spring Data REST Relationship](https://www.baeldung.com/spring-data-rest-relationships)
 
 **Redis Cache**
 
