@@ -1,6 +1,6 @@
-package com.mrtripop.inventory.repository;
+package com.mrtripop.inventory.order.repositories;
 
-import com.mrtripop.inventory.model.Order;
+import com.mrtripop.inventory.order.models.Order;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

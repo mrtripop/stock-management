@@ -1,7 +1,7 @@
-package com.mrtripop.inventory.controller;
+package com.mrtripop.inventory.order.controllers;
 
-import com.mrtripop.inventory.service.OrderService;
-import com.mrtripop.inventory.model.Order;
+import com.mrtripop.inventory.order.services.OrderService;
+import com.mrtripop.inventory.order.models.Order;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
