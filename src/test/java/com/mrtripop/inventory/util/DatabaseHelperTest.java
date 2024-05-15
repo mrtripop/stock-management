@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 class DatabaseHelperTest {
 
@@ -13,7 +14,7 @@ class DatabaseHelperTest {
   void initSortOrder_ReturnASC_WhenOrderByAscString() {
     // arrange
     PageRequest pageRequest = PageRequest.of(10, 10);
-    String orderBy = "asc";
+    Sort.Direction orderBy = Sort.Direction.ASC;
     // action
     PageRequest updatePageRequest = DatabaseHelper.initSortOrder(pageRequest, orderBy);
     // assert

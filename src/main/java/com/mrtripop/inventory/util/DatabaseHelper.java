@@ -9,27 +9,16 @@ import org.springframework.data.domain.Sort;
 public class DatabaseHelper {
   private DatabaseHelper() {}
 
-  public static PageRequest initSortOrder(PageRequest pageRequest, String orderBy) {
-    if (orderBy.equals("desc")) {
-      return pageRequest.withSort(Sort.Direction.DESC, "id");
-    } else {
-      return pageRequest.withSort(Sort.Direction.ASC, "id");
-    }
+  public static PageRequest initSortOrder(PageRequest pageRequest, Sort.Direction orderBy) {
+    return pageRequest.withSort(orderBy, "id");
   }
 
   public static PageRequest initPageable(Integer page, Integer size) {
-    PageRequest pageSize;
-    if (page <= 0 && size < 1) {
-      pageSize = PageRequest.of(0, 10);
-    } else if (page <= 0) {
-      pageSize = PageRequest.of(0, size);
-    } else {
-      pageSize = PageRequest.of(page - 1, size);
-    }
-    return pageSize;
+    // page is start by 0 but page number should start from 1
+    return PageRequest.of(page - 1, size);
   }
 
-  public static Pageable initPageableWithSort(Integer page, Integer size, String orderBy) {
+  public static Pageable initPageableWithSort(Integer page, Integer size, Sort.Direction orderBy) {
     PageRequest pageRequest = initPageable(page, size);
     return initSortOrder(pageRequest, orderBy);
   }
