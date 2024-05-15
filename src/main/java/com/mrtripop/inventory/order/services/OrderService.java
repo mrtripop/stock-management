@@ -1,12 +1,13 @@
-package com.mrtripop.inventory.service;
+package com.mrtripop.inventory.order.services;
 
+import com.mrtripop.inventory.service.TransactionService;
 import com.mrtripop.inventory.util.DatabaseHelper;
 import com.mrtripop.inventory.model.Address;
-import com.mrtripop.inventory.model.Order;
+import com.mrtripop.inventory.order.models.Order;
 import com.mrtripop.inventory.repository.AddressRepository;
 import com.mrtripop.inventory.model.Transaction;
 import com.mrtripop.inventory.model.User;
-import com.mrtripop.inventory.repository.OrderRepository;
+import com.mrtripop.inventory.order.repositories.OrderRepository;
 import com.mrtripop.inventory.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;

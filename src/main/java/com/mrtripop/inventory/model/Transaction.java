@@ -1,6 +1,7 @@
 package com.mrtripop.inventory.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mrtripop.inventory.order.models.Order;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

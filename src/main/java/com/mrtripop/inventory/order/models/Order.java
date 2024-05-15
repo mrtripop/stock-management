@@ -1,17 +1,17 @@
-package com.mrtripop.inventory.model;
+package com.mrtripop.inventory.order.models;
 
-// import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mrtripop.inventory.model.Address;
+import com.mrtripop.inventory.model.User;
 import jakarta.persistence.*;
+import java.io.Serializable;
+import java.time.ZonedDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.type.SqlTypes;
-
-import java.io.Serializable;
-import java.time.ZonedDateTime;
 
 @Data
 @Entity
