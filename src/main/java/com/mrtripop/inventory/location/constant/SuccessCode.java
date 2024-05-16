@@ -1,4 +1,4 @@
-package com.mrtripop.inventory.address.constant;
+package com.mrtripop.inventory.location.constant;
 
 import com.mrtripop.inventory.constant.BaseStatusCode;
 
