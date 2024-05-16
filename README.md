@@ -101,31 +101,34 @@ http://localhost:8080/swagger-ui/index.html
 
 **Code Pattern**
 
-- [SOLID]()
+- [SOLID]
 - [Facade](https://refactoring.guru/design-patterns/facade/java/example)
-- [Builder]()
+- [Builder]
 
 **Design System**
 
 - [Database Entity of Inventory System](https://vertabelo.com/blog/data-model-for-inventory-management-system/)
 - [Writing Address in English](https://medium.com/@pakapolper/writing-an-address-in-english-29dfbdc3d1ba)
+- Database Naming Convention Best Practice
+    - [Stack Overflow](https://stackoverflow.com/questions/7662/database-table-and-column-naming-conventions)
+    - [Microsoft SQL Server Sample - GitHub](https://github.com/microsoft/sql-server-samples/blob/master/samples/databases/adventure-works/README.md)
 
 **Development**
 
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Postgresql](https://www.postgresql.org/)
-- [Unit test in Spring Boot]()
-- [Integration test in Spring Boot]()
+- [Unit test in Spring Boot]
+- [Integration test in Spring Boot]
 
 **Deployment**
 
 - [Logging Format - Better Stack](https://betterstack.com/community/guides/logging/log-formatting/)
-- [Log Level]()
+- [Log Level]
 - [OpenTelemetry Logging](https://opentelemetry.io/docs/specs/otel/logs/)
 - [Three pillars of Observability](https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/ch04.html)
 - [Setup OpenTelemetry in Spring Boot](https://www.notion.so/Setup-OpenTelemetry-in-Spring-Boot-f273e32194af44fda8e46a7fecea9b4e?pvs=4)
-- [Spring Boot with Actuator]()
-- [Kubernetes]()
+- [Spring Boot with Actuator]
+- [Kubernetes]
 
 ## Technical Challenge
 
