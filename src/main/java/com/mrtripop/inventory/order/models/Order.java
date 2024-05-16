@@ -1,7 +1,7 @@
 package com.mrtripop.inventory.order.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mrtripop.inventory.model.Address;
+import com.mrtripop.inventory.address.models.Address;
 import com.mrtripop.inventory.model.User;
 import jakarta.persistence.*;
 import java.io.Serializable;
