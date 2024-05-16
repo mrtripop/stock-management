@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/addresses")
+@RequestMapping("/api/inventory/addresses")
 public class AddressController {
 
   private final AddressService addressService;

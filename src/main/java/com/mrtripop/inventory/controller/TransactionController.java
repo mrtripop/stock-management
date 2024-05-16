@@ -3,6 +3,7 @@ package com.mrtripop.inventory.controller;
 import com.mrtripop.inventory.service.TransactionService;
 import com.mrtripop.inventory.model.Transaction;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class TransactionController {
   public ResponseEntity<List<Transaction>> getTransaction(
       @RequestParam(defaultValue = "0") Integer page,
       @RequestParam(defaultValue = "10") Integer size,
-      @RequestParam(defaultValue = "ASC") String orderBy) {
+      @RequestParam(defaultValue = "ASC") Sort.Direction orderBy) {
     try {
       List<Transaction> transactions = this.transactionService.getTransactions(page, size, orderBy);
       return new ResponseEntity<>(transactions, HttpStatus.OK);

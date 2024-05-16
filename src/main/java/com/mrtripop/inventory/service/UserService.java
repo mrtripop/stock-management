@@ -1,17 +1,17 @@
 package com.mrtripop.inventory.service;
 
+import com.mrtripop.inventory.model.User;
+import com.mrtripop.inventory.repository.UserRepository;
 import com.mrtripop.inventory.util.DatabaseHelper;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
-
-import com.mrtripop.inventory.model.User;
-import com.mrtripop.inventory.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -25,7 +25,7 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  public List<User> retrieveUsers(Integer page, Integer size, String orderBy) {
+  public List<User> retrieveUsers(Integer page, Integer size, Sort.Direction orderBy) {
     try {
       Pageable pageSize = DatabaseHelper.initPageableWithSort(page, size, orderBy);
       Page<User> pageUser = userRepository.findAll(pageSize);

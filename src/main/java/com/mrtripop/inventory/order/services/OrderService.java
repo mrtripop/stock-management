@@ -2,9 +2,9 @@ package com.mrtripop.inventory.order.services;
 
 import com.mrtripop.inventory.service.TransactionService;
 import com.mrtripop.inventory.util.DatabaseHelper;
-import com.mrtripop.inventory.model.Address;
+import com.mrtripop.inventory.address.models.Address;
 import com.mrtripop.inventory.order.models.Order;
-import com.mrtripop.inventory.repository.AddressRepository;
+import com.mrtripop.inventory.address.repositories.AddressRepository;
 import com.mrtripop.inventory.model.Transaction;
 import com.mrtripop.inventory.model.User;
 import com.mrtripop.inventory.order.repositories.OrderRepository;
@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
@@ -39,7 +40,8 @@ public class OrderService {
     this.transactionService = transactionService;
   }
 
-  public List<Order> retrieveUserOrders(Long userId, Integer page, Integer size, String orderBy) {
+  public List<Order> retrieveUserOrders(
+      Long userId, Integer page, Integer size, Sort.Direction orderBy) {
     try {
       boolean existUser = userRepository.existsById(userId);
       if (existUser) {
@@ -75,26 +77,28 @@ public class OrderService {
       Optional<User> user = userRepository.findById(userId);
       if (user.isEmpty()) return null;
       // set metadata of order
-      Optional<Address> userAddress = addressRepository.findByUserIdAndId(userId, addressId);
-      if (userAddress.isEmpty()) return null;
-      order.setCreatedAt(ZonedDateTime.now());
-      order.setUpdatedAt(ZonedDateTime.now());
-      order.setUser(user.get());
-      order.setAddress(userAddress.get());
-      // create order
-      Order createOrder = orderRepository.save(order);
-      // create transaction
-      Transaction transaction = new Transaction();
-      transaction.setCode("CREATE_ORDER_101");
-      transaction.setType(1);
-      transaction.setMode(1);
-      transaction.setStatus(1);
-      transaction.setContent(order.getContent());
-      transaction.setUser(user.get());
-      transaction.setOrder(createOrder);
-      // create transaction
-      transactionService.createNewTransaction(transaction);
-      return createOrder;
+      //      Optional<Address> userAddress = addressRepository.findByUserIdAndId(userId,
+      // addressId);
+      //      if (userAddress.isEmpty()) return null;
+      //      order.setCreatedAt(ZonedDateTime.now());
+      //      order.setUpdatedAt(ZonedDateTime.now());
+      //      order.setUser(user.get());
+      //      order.setAddress(userAddress.get());
+      //      // create order
+      //      Order createOrder = orderRepository.save(order);
+      //      // create transaction
+      //      Transaction transaction = new Transaction();
+      //      transaction.setCode("CREATE_ORDER_101");
+      //      transaction.setType(1);
+      //      transaction.setMode(1);
+      //      transaction.setStatus(1);
+      //      transaction.setContent(order.getContent());
+      //      transaction.setUser(user.get());
+      //      transaction.setOrder(createOrder);
+      //      // create transaction
+      //      transactionService.createNewTransaction(transaction);
+      //      return createOrder;
+      return null;
     } catch (Exception e) {
       log.error(e.toString());
       throw new RuntimeException("CreateOrderException", e.getCause());

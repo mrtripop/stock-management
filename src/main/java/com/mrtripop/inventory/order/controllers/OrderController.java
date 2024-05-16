@@ -1,14 +1,14 @@
 package com.mrtripop.inventory.order.controllers;
 
-import com.mrtripop.inventory.order.services.OrderService;
 import com.mrtripop.inventory.order.models.Order;
+import com.mrtripop.inventory.order.services.OrderService;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -25,7 +25,7 @@ public class OrderController {
   public ResponseEntity<List<Order>> retrieveOrders(
       @RequestParam(defaultValue = "0") Integer page,
       @RequestParam(defaultValue = "10") Integer size,
-      @RequestParam(defaultValue = "asc") String orderBy,
+      @RequestParam(defaultValue = "ASC") Sort.Direction orderBy,
       @PathVariable(name = "userId") Long userId) {
     try {
       List<Order> result = orderService.retrieveUserOrders(userId, page, size, orderBy);
