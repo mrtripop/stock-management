@@ -1,15 +1,15 @@
 services:
-  inventory:
-    container_name: management
-    build: ./
-    env_file:
-      - .env.dev
-    ports:
-      - "8080:8080"
-    depends_on:
-      - postgres
-      - collector
-      - redis
+#  inventory:
+#    container_name: management
+#    build: ./
+#    env_file:
+#      - .env.dev
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - postgres
+#      - collector
+#      - redis
 
   postgres:
     container_name: postgres
