@@ -1,10 +1,10 @@
-package com.mrtripop.controller;
+package com.mrtripop.account.controllers;
 
 import com.mrtripop.constant.ErrorCode;
 import com.mrtripop.constant.SuccessCode;
 import com.mrtripop.model.ResponseBody;
-import com.mrtripop.model.User;
-import com.mrtripop.service.UserService;
+import com.mrtripop.account.models.User;
+import com.mrtripop.account.services.UserService;
 import java.net.URI;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

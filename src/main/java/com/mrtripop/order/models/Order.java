@@ -2,7 +2,7 @@ package com.mrtripop.order.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mrtripop.location.models.Address;
-import com.mrtripop.model.User;
+import com.mrtripop.account.models.User;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;

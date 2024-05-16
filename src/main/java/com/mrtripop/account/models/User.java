@@ -1,4 +1,4 @@
-package com.mrtripop.model;
+package com.mrtripop.account.models;
 
 import jakarta.persistence.*;
 import java.io.Serializable;

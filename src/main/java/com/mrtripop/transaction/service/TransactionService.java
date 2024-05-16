@@ -1,12 +1,12 @@
-package com.mrtripop.service;
+package com.mrtripop.transaction.service;
 
 import com.mrtripop.util.DatabaseHelper;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import com.mrtripop.model.Transaction;
-import com.mrtripop.repository.TransactionRepository;
+import com.mrtripop.transaction.models.Transaction;
+import com.mrtripop.transaction.repository.TransactionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

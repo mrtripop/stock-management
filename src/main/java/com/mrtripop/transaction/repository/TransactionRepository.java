@@ -1,6 +1,6 @@
-package com.mrtripop.repository;
+package com.mrtripop.transaction.repository;
 
-import com.mrtripop.model.Transaction;
+import com.mrtripop.transaction.models.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package com.mrtripop.controller;
+package com.mrtripop.transaction.controller;
 
-import com.mrtripop.service.TransactionService;
-import com.mrtripop.model.Transaction;
+import com.mrtripop.transaction.service.TransactionService;
+import com.mrtripop.transaction.models.Transaction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;

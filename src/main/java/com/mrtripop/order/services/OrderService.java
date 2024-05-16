@@ -1,11 +1,11 @@
 package com.mrtripop.order.services;
 
 import com.mrtripop.location.repositories.AddressRepository;
-import com.mrtripop.model.User;
+import com.mrtripop.account.models.User;
 import com.mrtripop.order.models.Order;
 import com.mrtripop.order.repositories.OrderRepository;
-import com.mrtripop.repository.UserRepository;
-import com.mrtripop.service.TransactionService;
+import com.mrtripop.account.repositories.UserRepository;
+import com.mrtripop.transaction.service.TransactionService;
 import com.mrtripop.util.DatabaseHelper;
 import jakarta.transaction.Transactional;
 import java.time.ZonedDateTime;

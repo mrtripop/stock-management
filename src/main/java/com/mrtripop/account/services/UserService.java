@@ -1,7 +1,7 @@
-package com.mrtripop.service;
+package com.mrtripop.account.services;
 
-import com.mrtripop.model.User;
-import com.mrtripop.repository.UserRepository;
+import com.mrtripop.account.models.User;
+import com.mrtripop.account.repositories.UserRepository;
 import com.mrtripop.util.DatabaseHelper;
 import java.time.ZonedDateTime;
 import java.util.List;

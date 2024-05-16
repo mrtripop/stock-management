@@ -1,6 +1,6 @@
-package com.mrtripop.util;
+package com.mrtripop.account.utils;
 
-import com.mrtripop.model.User;
+import com.mrtripop.account.models.User;
 import java.time.ZonedDateTime;
 import org.springframework.data.jpa.domain.Specification;
 
