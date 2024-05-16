@@ -1,9 +1,9 @@
-package com.mrtripop.inventory.address.controllers;
+package com.mrtripop.inventory.location.controllers;
 
-import com.mrtripop.inventory.address.constant.ErrorCode;
-import com.mrtripop.inventory.address.constant.SuccessCode;
-import com.mrtripop.inventory.address.models.Address;
-import com.mrtripop.inventory.address.services.AddressService;
+import com.mrtripop.inventory.location.constant.ErrorCode;
+import com.mrtripop.inventory.location.constant.SuccessCode;
+import com.mrtripop.inventory.location.models.Address;
+import com.mrtripop.inventory.location.services.AddressService;
 import com.mrtripop.inventory.constant.BaseStatusCode;
 import com.mrtripop.inventory.exception.GlobalThrowable;
 import com.mrtripop.inventory.model.ResponseBody;

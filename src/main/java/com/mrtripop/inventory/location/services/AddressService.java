@@ -1,8 +1,8 @@
-package com.mrtripop.inventory.address.services;
+package com.mrtripop.inventory.location.services;
 
-import com.mrtripop.inventory.address.constant.ErrorCode;
-import com.mrtripop.inventory.address.models.Address;
-import com.mrtripop.inventory.address.repositories.AddressRepository;
+import com.mrtripop.inventory.location.constant.ErrorCode;
+import com.mrtripop.inventory.location.models.Address;
+import com.mrtripop.inventory.location.repositories.AddressRepository;
 import com.mrtripop.inventory.exception.GlobalThrowable;
 import com.mrtripop.inventory.util.DatabaseHelper;
 import java.util.List;
