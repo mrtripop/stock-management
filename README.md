@@ -10,6 +10,7 @@ for simulate manage stock system feature to know how it's work and what design i
 - [Amazon Corretto 17](https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html)
 - [Java version manager](https://www.jenv.be/)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [IntelliJ IDEA Community](https://www.jetbrains.com/idea/download/?section=mac)
 - [Google Java Format](https://plugins.jetbrains.com/plugin/8527-google-java-format)
 - [SonarLint](https://plugins.jetbrains.com/plugin/7973-sonarlint)
 - [CommitLint](https://www.notion.so/Commitlint-on-local-ea1ec27b07b444f5b1b19d1b5506cbbd)
