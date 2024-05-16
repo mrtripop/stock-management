@@ -1,24 +1,21 @@
 package com.mrtripop.inventory.order.services;
 
-import com.mrtripop.inventory.service.TransactionService;
-import com.mrtripop.inventory.util.DatabaseHelper;
-import com.mrtripop.inventory.address.models.Address;
-import com.mrtripop.inventory.order.models.Order;
-import com.mrtripop.inventory.address.repositories.AddressRepository;
-import com.mrtripop.inventory.model.Transaction;
+import com.mrtripop.inventory.location.repositories.AddressRepository;
 import com.mrtripop.inventory.model.User;
+import com.mrtripop.inventory.order.models.Order;
 import com.mrtripop.inventory.order.repositories.OrderRepository;
 import com.mrtripop.inventory.repository.UserRepository;
+import com.mrtripop.inventory.service.TransactionService;
+import com.mrtripop.inventory.util.DatabaseHelper;
 import jakarta.transaction.Transactional;
+import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
