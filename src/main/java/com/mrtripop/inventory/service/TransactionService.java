@@ -10,6 +10,7 @@ import com.mrtripop.inventory.repository.TransactionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -22,7 +23,7 @@ public class TransactionService {
     this.transactionRepository = transactionRepository;
   }
 
-  public List<Transaction> getTransactions(Integer page, Integer size, String orderBy) {
+  public List<Transaction> getTransactions(Integer page, Integer size, Sort.Direction orderBy) {
     try {
       Pageable pageable = DatabaseHelper.initPageableWithSort(page, size, orderBy);
       Page<Transaction> transactionPage = transactionRepository.findAll(pageable);

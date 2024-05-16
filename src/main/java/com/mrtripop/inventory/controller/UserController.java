@@ -9,6 +9,7 @@ import java.net.URI;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class UserController {
   public ResponseEntity<Object> retrieveUsers(
       @RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer size,
-      @RequestParam(defaultValue = "asc") String orderBy) {
+      @RequestParam(defaultValue = "ASC") Sort.Direction orderBy) {
     try {
       List<User> result = userService.retrieveUsers(page, size, orderBy);
       log.debug("Retrieve users: {}", result.toString());
