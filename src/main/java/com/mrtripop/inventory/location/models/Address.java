@@ -1,7 +1,7 @@
-package com.mrtripop.inventory.address.models;
+package com.mrtripop.inventory.location.models;
 
 import jakarta.persistence.*;
-import java.io.Serializable;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,21 +14,22 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(
-    name = "address",
+    name = "addresses",
     indexes = {
-      @Index(name = "address_created_at", columnList = "created_at"),
-      @Index(name = "address_updated_at", columnList = "updated_at"),
+      @Index(name = "addresses_created_at", columnList = "created_at"),
+      @Index(name = "addresses_updated_at", columnList = "updated_at"),
     })
 @EntityListeners(AuditingEntityListener.class)
-public class Address implements Serializable {
+public class Address {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_seq")
-  @SequenceGenerator(name = "address_seq", allocationSize = 1)
-  private Long id;
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "addresses_id_seq")
+  @SequenceGenerator(name = "addresses_id_seq", allocationSize = 1)
+  @Column(name = "address_id", columnDefinition = "BIGINT")
+  private Long addressId;
 
-  @Column(name = "name", columnDefinition = "TEXT")
-  private String name;
+  @Column(name = "address_name", columnDefinition = "TEXT")
+  private String addressName;
 
   @Column(name = "line1", columnDefinition = "TEXT")
   private String line1;
@@ -47,6 +48,9 @@ public class Address implements Serializable {
 
   @Column(name = "postal_code", columnDefinition = "TEXT")
   private String postalCode;
+
+  @OneToMany(mappedBy = "address")
+  private List<Warehouse> warehouses;
 
   @CreatedDate
   @Column(name = "created_at", columnDefinition = "BIGINT")
