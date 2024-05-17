@@ -1,4 +1,4 @@
-package com.mrtripop.product.component;
+package com.mrtripop.aspect;
 
 import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Aspect
 @Component
-public class ProductAspect {
+public class GlobalAspect {
 
-  @Pointcut("execution(public * com.mrtripop.inventory.product.*.*.*(..))")
+  @Pointcut("execution(public * com.mrtripop.*.*.*.*(..))")
   private void publicLoggingMethodPointcut() {}
 
   @Around(value = "publicLoggingMethodPointcut()")
