@@ -1,8 +1,9 @@
-package com.mrtripop.location.models;
+package com.mrtripop.location.models.entities;
 
 import jakarta.persistence.*;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(
@@ -25,8 +27,7 @@ public class Address {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "addresses_id_seq")
   @SequenceGenerator(name = "addresses_id_seq", allocationSize = 1)
-  @Column(name = "address_id", columnDefinition = "BIGINT")
-  private Long addressId;
+  private Long id;
 
   @Column(name = "address_name", columnDefinition = "TEXT")
   private String addressName;
