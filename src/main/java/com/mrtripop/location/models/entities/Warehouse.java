@@ -1,4 +1,4 @@
-package com.mrtripop.location.models;
+package com.mrtripop.location.models.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,8 +21,7 @@ public class Warehouse {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "warehouse_id_seq")
   @SequenceGenerator(name = "warehouse_id_seq", allocationSize = 1)
-  @Column(name = "warehouse_id", columnDefinition = "BIGINT")
-  private Long warehouseId;
+  private Long id;
 
   @Column(name = "warehouse_name", columnDefinition = "TEXT")
   private String warehouseName;
