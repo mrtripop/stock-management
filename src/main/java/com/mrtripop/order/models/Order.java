@@ -1,10 +1,9 @@
 package com.mrtripop.order.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mrtripop.location.models.entities.Address;
 import com.mrtripop.account.models.User;
+import com.mrtripop.location.models.entities.Address;
 import jakarta.persistence.*;
-import java.io.Serializable;
 import java.time.ZonedDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,7 @@ import org.hibernate.type.SqlTypes;
 @Entity
 @Table(name = "order_info")
 @NoArgsConstructor
-public class Order implements Serializable {
+public class Order {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_info_seq")

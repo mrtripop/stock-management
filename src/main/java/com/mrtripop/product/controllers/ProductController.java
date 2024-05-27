@@ -30,7 +30,7 @@ public class ProductController {
   }
 
   @GetMapping
-  public ResponseEntity<Object> getProducts(QueryParams queryParams) throws GlobalThrowable {
+  public ResponseEntity<Object> getProducts(@Valid QueryParams queryParams) throws GlobalThrowable {
     try {
       List<ProductDTO> products = this.productService.getProducts(queryParams);
       BaseStatusCode successCode = SuccessCode.PRO2001_GET_ALL_PRODUCTS_IS_SUCCESS;

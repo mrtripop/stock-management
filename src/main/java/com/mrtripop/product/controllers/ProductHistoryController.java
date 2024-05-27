@@ -8,6 +8,7 @@ import com.mrtripop.product.constant.ErrorCode;
 import com.mrtripop.product.constant.SuccessCode;
 import com.mrtripop.product.models.ProductDTO;
 import com.mrtripop.product.services.ProductHistoryServiceImpl;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -29,7 +30,7 @@ public class ProductHistoryController {
   }
 
   @GetMapping
-  public ResponseEntity<Object> getProductsHistories(QueryParams queryParams)
+  public ResponseEntity<Object> getProductsHistories(@Valid QueryParams queryParams)
       throws GlobalThrowable {
     try {
       List<ProductDTO> productHistories = this.productService.getProductsHistories(queryParams);
@@ -54,7 +55,7 @@ public class ProductHistoryController {
           @NotNull(message = "Product code query param must not be null")
           @NotEmpty(message = "Product code query param must not be empty")
           String productCode,
-      QueryParams queryParams)
+      @Valid QueryParams queryParams)
       throws GlobalThrowable {
     try {
       List<ProductDTO> productHistories =
