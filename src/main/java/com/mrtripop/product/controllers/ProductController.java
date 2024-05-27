@@ -2,6 +2,7 @@ package com.mrtripop.product.controllers;
 
 import com.mrtripop.constant.BaseStatusCode;
 import com.mrtripop.exception.GlobalThrowable;
+import com.mrtripop.model.QueryParams;
 import com.mrtripop.model.ResponseBody;
 import com.mrtripop.product.constant.ErrorCode;
 import com.mrtripop.product.constant.SuccessCode;
@@ -13,7 +14,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,21 +30,9 @@ public class ProductController {
   }
 
   @GetMapping
-  public ResponseEntity<Object> getProducts(
-      @RequestParam(name = "page", defaultValue = "1", required = false)
-          @Min(value = 1, message = "Page query param must not less than one")
-          @NotNull(message = "Page query param must not be null")
-          Integer page,
-      @RequestParam(name = "size", defaultValue = "200", required = false)
-          @Min(value = 1, message = "Size query param must not less than one")
-          @NotNull(message = "Size query param must not be null")
-          Integer size,
-      @RequestParam(name = "order_by", defaultValue = "ASC", required = false)
-          @NotNull(message = "Order by query param must not be null")
-          Sort.Direction orderBy)
-      throws GlobalThrowable {
+  public ResponseEntity<Object> getProducts(QueryParams queryParams) throws GlobalThrowable {
     try {
-      List<ProductDTO> products = this.productService.getProducts(page, size, orderBy);
+      List<ProductDTO> products = this.productService.getProducts(queryParams);
       BaseStatusCode successCode = SuccessCode.PRO2001_GET_ALL_PRODUCTS_IS_SUCCESS;
       return ResponseBody.builder()
           .code(successCode.getCode())

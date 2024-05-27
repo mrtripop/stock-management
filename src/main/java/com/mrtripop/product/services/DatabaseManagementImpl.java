@@ -1,6 +1,7 @@
 package com.mrtripop.product.services;
 
 import com.mrtripop.exception.GlobalThrowable;
+import com.mrtripop.model.QueryParams;
 import com.mrtripop.product.component.ProductProcessor;
 import com.mrtripop.product.constant.ErrorCode;
 import com.mrtripop.product.interfaces.ProductService;
@@ -16,7 +17,6 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +34,8 @@ public class DatabaseManagementImpl implements ProductService {
   }
 
   @Override
-  public List<ProductDTO> getProducts(Integer page, Integer size, Sort.Direction orderBy) {
-    Pageable pageSize = ProductUtil.initPageableWithSort(page, size, orderBy);
+  public List<ProductDTO> getProducts(QueryParams queryParams) {
+    Pageable pageSize = ProductUtil.initPageableWithSort(queryParams);
     Page<Product> productPages = productRepository.findAll(pageSize);
     List<Product> products = productPages.getContent();
     return products.stream().map(ProductProcessor::mapToProductDTO).toList();

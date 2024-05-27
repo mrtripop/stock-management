@@ -1,6 +1,7 @@
 package com.mrtripop.product.services;
 
 import com.mrtripop.exception.GlobalThrowable;
+import com.mrtripop.model.QueryParams;
 import com.mrtripop.product.component.ProductProcessor;
 import com.mrtripop.product.constant.ErrorCode;
 import com.mrtripop.product.models.ProductDTO;
@@ -8,11 +9,9 @@ import com.mrtripop.product.models.db.ProductHistory;
 import com.mrtripop.product.repository.ProductHistoryRepository;
 import com.mrtripop.product.util.ProductUtil;
 import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -27,10 +26,9 @@ public class ProductHistoryServiceImpl {
     this.productHistoryRepository = productHistoryRepository;
   }
 
-  public List<ProductDTO> getProductsHistories(Integer page, Integer size, Sort.Direction orderBy)
-      throws GlobalThrowable {
+  public List<ProductDTO> getProductsHistories(QueryParams queryParams) throws GlobalThrowable {
     try {
-      Pageable pageable = ProductUtil.initPageableWithSort(page, size, orderBy);
+      Pageable pageable = ProductUtil.initPageableWithSort(queryParams);
       Page<ProductHistory> productHistoriesPages = productHistoryRepository.findAll(pageable);
       return productHistoriesPages.getContent().stream()
           .map(ProductProcessor::mapToProductDTO)
@@ -42,13 +40,13 @@ public class ProductHistoryServiceImpl {
     }
   }
 
-  public List<ProductDTO> getProductHistoriesByCode(
-      String code, Integer page, Integer size, Sort.Direction orderBy) throws GlobalThrowable {
+  public List<ProductDTO> getProductHistoriesByCode(String code, QueryParams queryParams)
+      throws GlobalThrowable {
     try {
       // create a specification for query column
       // create a sort and pagination
       Specification<ProductHistory> specification = ProductUtil.productsHaveCode(code);
-      Pageable pageable = ProductUtil.initPageableWithSort(page, size, orderBy);
+      Pageable pageable = ProductUtil.initPageableWithSort(queryParams);
       Page<ProductHistory> productHistoriesPages =
           productHistoryRepository.findAll(specification, pageable);
       return productHistoriesPages.getContent().stream()
