@@ -151,6 +151,9 @@ http://localhost:8080/swagger-ui/index.html
     - [Spring docs @ControllerAdvice](https://docs.spring.io/spring-framework/reference/web/webflux/controller/ann-advice.html)
     - [Github issue @ControllerAdvice](https://github.com/spring-projects/spring-framework/issues/25070)
 - Race Condition
+- [Map query param into POJOs](https://stackoverflow.com/questions/16942193/spring-mvc-complex-object-as-get-requestparam)
+    - **Note**: Above, setter method must input string as argument, then string value convert into expect data
+      type.
 
 **Spring Email**
 
