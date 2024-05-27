@@ -1,15 +1,14 @@
 package com.mrtripop.product.services;
 
 import com.mrtripop.exception.GlobalThrowable;
+import com.mrtripop.model.QueryParams;
 import com.mrtripop.product.interfaces.ProductService;
 import com.mrtripop.product.models.ProductDTO;
 import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -23,9 +22,8 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public List<ProductDTO> getProducts(Integer page, Integer size, Sort.Direction orderBy)
-      throws GlobalThrowable {
-    return databaseManager.getProducts(page, size, orderBy);
+  public List<ProductDTO> getProducts(QueryParams queryParams) throws GlobalThrowable {
+    return databaseManager.getProducts(queryParams);
   }
 
   @Override
