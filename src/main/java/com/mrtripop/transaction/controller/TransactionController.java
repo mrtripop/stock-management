@@ -1,14 +1,14 @@
 package com.mrtripop.transaction.controller;
 
-import com.mrtripop.transaction.service.TransactionService;
+import com.mrtripop.model.QueryParams;
 import com.mrtripop.transaction.models.Transaction;
+import com.mrtripop.transaction.service.TransactionService;
+import jakarta.validation.Valid;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -22,12 +22,9 @@ public class TransactionController {
   }
 
   @GetMapping
-  public ResponseEntity<List<Transaction>> getTransaction(
-      @RequestParam(defaultValue = "0") Integer page,
-      @RequestParam(defaultValue = "10") Integer size,
-      @RequestParam(defaultValue = "ASC") Sort.Direction orderBy) {
+  public ResponseEntity<List<Transaction>> getTransaction(@Valid QueryParams queryParams) {
     try {
-      List<Transaction> transactions = this.transactionService.getTransactions(page, size, orderBy);
+      List<Transaction> transactions = this.transactionService.getTransactions(queryParams);
       return new ResponseEntity<>(transactions, HttpStatus.OK);
     } catch (Exception e) {
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

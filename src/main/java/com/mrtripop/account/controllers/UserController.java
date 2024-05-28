@@ -1,15 +1,16 @@
 package com.mrtripop.account.controllers;
 
-import com.mrtripop.constant.ErrorCode;
-import com.mrtripop.constant.SuccessCode;
-import com.mrtripop.model.ResponseBody;
 import com.mrtripop.account.models.User;
 import com.mrtripop.account.services.UserService;
+import com.mrtripop.constant.ErrorCode;
+import com.mrtripop.constant.SuccessCode;
+import com.mrtripop.model.QueryParams;
+import com.mrtripop.model.ResponseBody;
+import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +28,9 @@ public class UserController {
   }
 
   @GetMapping
-  public ResponseEntity<Object> retrieveUsers(
-      @RequestParam(defaultValue = "1") Integer page,
-      @RequestParam(defaultValue = "10") Integer size,
-      @RequestParam(defaultValue = "ASC") Sort.Direction orderBy) {
+  public ResponseEntity<Object> retrieveUsers(@Valid QueryParams queryParams) {
     try {
-      List<User> result = userService.retrieveUsers(page, size, orderBy);
+      List<User> result = userService.retrieveUsers(queryParams);
       log.debug("Retrieve users: {}", result.toString());
       SuccessCode status = SuccessCode.USER2000_RETRIEVE_USERS_SUCCESS;
       return ResponseBody.builder()

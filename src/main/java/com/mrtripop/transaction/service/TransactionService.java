@@ -1,16 +1,15 @@
 package com.mrtripop.transaction.service;
 
+import com.mrtripop.model.QueryParams;
+import com.mrtripop.transaction.models.Transaction;
+import com.mrtripop.transaction.repository.TransactionRepository;
 import com.mrtripop.util.DatabaseHelper;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
-
-import com.mrtripop.transaction.models.Transaction;
-import com.mrtripop.transaction.repository.TransactionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -23,9 +22,9 @@ public class TransactionService {
     this.transactionRepository = transactionRepository;
   }
 
-  public List<Transaction> getTransactions(Integer page, Integer size, Sort.Direction orderBy) {
+  public List<Transaction> getTransactions(QueryParams queryParams) {
     try {
-      Pageable pageable = DatabaseHelper.initPageableWithSort(page, size, orderBy);
+      Pageable pageable = DatabaseHelper.initPageableWithSort(queryParams);
       Page<Transaction> transactionPage = transactionRepository.findAll(pageable);
       return transactionPage.getContent();
     } catch (Exception e) {

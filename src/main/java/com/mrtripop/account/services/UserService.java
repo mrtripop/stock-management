@@ -2,17 +2,16 @@ package com.mrtripop.account.services;
 
 import com.mrtripop.account.models.User;
 import com.mrtripop.account.repositories.UserRepository;
+import com.mrtripop.model.QueryParams;
 import com.mrtripop.util.DatabaseHelper;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -26,9 +25,9 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  public List<User> retrieveUsers(Integer page, Integer size, Sort.Direction orderBy) {
+  public List<User> retrieveUsers(QueryParams queryParams) {
     try {
-      Pageable pageSize = DatabaseHelper.initPageableWithSort(page, size, orderBy);
+      Pageable pageSize = DatabaseHelper.initPageableWithSort(queryParams);
       Page<User> pageUser = userRepository.findAll(pageSize);
       log.debug(pageUser.toString());
       return pageUser.stream().toList();
