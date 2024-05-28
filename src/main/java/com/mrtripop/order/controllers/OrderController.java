@@ -1,11 +1,11 @@
 package com.mrtripop.order.controllers;
 
+import com.mrtripop.model.QueryParams;
 import com.mrtripop.order.models.Order;
 import com.mrtripop.order.services.OrderService;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +23,9 @@ public class OrderController {
 
   @GetMapping("/users/{userId}/orders")
   public ResponseEntity<List<Order>> retrieveOrders(
-      @RequestParam(defaultValue = "0") Integer page,
-      @RequestParam(defaultValue = "10") Integer size,
-      @RequestParam(defaultValue = "ASC") Sort.Direction orderBy,
-      @PathVariable(name = "userId") Long userId) {
+      @PathVariable(name = "userId") Long userId, QueryParams queryParams) {
     try {
-      List<Order> result = orderService.retrieveUserOrders(userId, page, size, orderBy);
+      List<Order> result = orderService.retrieveUserOrders(userId, queryParams);
       return new ResponseEntity<>(result, HttpStatus.OK);
     } catch (Exception e) {
       log.error(e.toString());

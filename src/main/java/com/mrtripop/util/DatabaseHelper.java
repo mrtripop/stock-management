@@ -1,5 +1,6 @@
 package com.mrtripop.util;
 
+import com.mrtripop.model.QueryParams;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,8 +19,8 @@ public class DatabaseHelper {
     return PageRequest.of(page - 1, size);
   }
 
-  public static Pageable initPageableWithSort(Integer page, Integer size, Sort.Direction orderBy) {
-    PageRequest pageRequest = initPageable(page, size);
-    return initSortOrder(pageRequest, orderBy);
+  public static Pageable initPageableWithSort(QueryParams queryParams) {
+    PageRequest pageRequest = initPageable(queryParams.getPage(), queryParams.getSize());
+    return initSortOrder(pageRequest, queryParams.getOrderBy());
   }
 }

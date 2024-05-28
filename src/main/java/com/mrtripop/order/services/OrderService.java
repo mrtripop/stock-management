@@ -1,10 +1,11 @@
 package com.mrtripop.order.services;
 
-import com.mrtripop.location.repositories.AddressRepository;
 import com.mrtripop.account.models.User;
+import com.mrtripop.account.repositories.UserRepository;
+import com.mrtripop.location.repositories.AddressRepository;
+import com.mrtripop.model.QueryParams;
 import com.mrtripop.order.models.Order;
 import com.mrtripop.order.repositories.OrderRepository;
-import com.mrtripop.account.repositories.UserRepository;
 import com.mrtripop.transaction.service.TransactionService;
 import com.mrtripop.util.DatabaseHelper;
 import jakarta.transaction.Transactional;
@@ -14,7 +15,6 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -37,12 +37,11 @@ public class OrderService {
     this.transactionService = transactionService;
   }
 
-  public List<Order> retrieveUserOrders(
-      Long userId, Integer page, Integer size, Sort.Direction orderBy) {
+  public List<Order> retrieveUserOrders(Long userId, QueryParams queryParams) {
     try {
       boolean existUser = userRepository.existsById(userId);
       if (existUser) {
-        Pageable pageSize = DatabaseHelper.initPageableWithSort(page, size, orderBy);
+        Pageable pageSize = DatabaseHelper.initPageableWithSort(queryParams);
         Page<Order> orders = orderRepository.findByUserId(userId, pageSize);
         log.debug(orders.toString());
         return orders.stream().toList();
