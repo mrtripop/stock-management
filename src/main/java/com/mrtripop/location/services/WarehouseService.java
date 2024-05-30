@@ -2,7 +2,7 @@ package com.mrtripop.location.services;
 
 import com.mrtripop.exception.GlobalThrowable;
 import com.mrtripop.location.constant.ErrorCode;
-import com.mrtripop.location.models.entities.Address;
+import com.mrtripop.location.interfaces.AddressService;
 import com.mrtripop.location.models.entities.Warehouse;
 import com.mrtripop.location.repositories.WarehouseRepository;
 import com.mrtripop.model.QueryParams;
@@ -22,7 +22,8 @@ public class WarehouseService {
   private final WarehouseRepository warehouseRepository;
   private final AddressService addressService;
 
-  public WarehouseService(WarehouseRepository warehouseRepository, AddressService addressService) {
+  public WarehouseService(
+      WarehouseRepository warehouseRepository, AddressServiceImpl addressService) {
     this.warehouseRepository = warehouseRepository;
     this.addressService = addressService;
   }
@@ -60,12 +61,13 @@ public class WarehouseService {
 
   public Warehouse getWarehouseByAddressId(Long addressId) throws GlobalThrowable {
     try {
-      Address address = addressService.getAddressesById(addressId);
-      Optional<Warehouse> existingWarehouse = warehouseRepository.findByAddress(address);
-      return existingWarehouse.orElseThrow(
-          () ->
-              new GlobalThrowable(
-                  ErrorCode.UAD5001_CANNOT_RETRIEVE_ADDRESSES, HttpStatus.NOT_FOUND));
+      return null;
+      //      Address address = addressService.getAddressesById(addressId);
+      //      Optional<Warehouse> existingWarehouse = warehouseRepository.findByAddress(address);
+      //      return existingWarehouse.orElseThrow(
+      //          () ->
+      //              new GlobalThrowable(
+      //                  ErrorCode.UAD5001_CANNOT_RETRIEVE_ADDRESSES, HttpStatus.NOT_FOUND));
     } catch (Exception e) {
       log.error("Cannot select warehouse by address Id({}): {}", addressId, e.getMessage());
       throw new GlobalThrowable(
