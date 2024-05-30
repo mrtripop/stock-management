@@ -4,10 +4,10 @@ import com.mrtripop.constant.BaseStatusCode;
 import com.mrtripop.exception.GlobalThrowable;
 import com.mrtripop.location.constant.ErrorCode;
 import com.mrtripop.location.constant.SuccessCode;
-import com.mrtripop.model.QueryParams;
+import com.mrtripop.location.interfaces.AddressService;
 import com.mrtripop.location.models.dtos.AddressDTO;
-import com.mrtripop.location.models.entities.Address;
-import com.mrtripop.location.services.AddressService;
+import com.mrtripop.location.services.AddressServiceImpl;
+import com.mrtripop.model.QueryParams;
 import com.mrtripop.model.ResponseBody;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -24,7 +24,7 @@ public class AddressController {
 
   private final AddressService addressService;
 
-  public AddressController(AddressService addressService) {
+  public AddressController(AddressServiceImpl addressService) {
     this.addressService = addressService;
   }
 
@@ -32,7 +32,7 @@ public class AddressController {
   public ResponseEntity<Object> getAddresses(@Valid QueryParams queryParams)
       throws GlobalThrowable {
     try {
-      List<Address> addresses = addressService.getAddresses(queryParams);
+      List<AddressDTO> addresses = addressService.getAllAddress(queryParams);
       BaseStatusCode code = SuccessCode.SUCCESS;
       return ResponseBody.builder()
           .code(code.getCode())
@@ -41,7 +41,7 @@ public class AddressController {
           .build()
           .buildResponseEntity(HttpStatus.OK);
     } catch (Exception e) {
-      log.error("Cannot get user address: {}", e.getMessage());
+      log.error("Cannot get addresses: {}", e.getMessage());
       throw new GlobalThrowable(
           ErrorCode.UAD5001_CANNOT_RETRIEVE_ADDRESSES, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -52,7 +52,7 @@ public class AddressController {
       @PathVariable @Min(value = 1, message = "Address ID is invalid") Long addressId)
       throws GlobalThrowable {
     try {
-      Address address = addressService.getAddressesById(addressId);
+      AddressDTO address = addressService.getAddressById(addressId);
       BaseStatusCode code = SuccessCode.SUCCESS;
       return ResponseBody.builder()
           .code(code.getCode())
@@ -61,7 +61,7 @@ public class AddressController {
           .build()
           .buildResponseEntity(HttpStatus.OK);
     } catch (Exception e) {
-      log.error("Cannot get addresses by ID '{}': {}", addressId, e.getMessage());
+      log.error("Cannot get an addresses: {}", e.getMessage());
       throw new GlobalThrowable(
           ErrorCode.UAD5003_NOT_FOUND_ADDRESSES_FOR_ADDRESS_ID, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -71,18 +71,57 @@ public class AddressController {
   public ResponseEntity<Object> addNewAddress(@RequestBody @Valid AddressDTO addressDTO)
       throws GlobalThrowable {
     try {
-      Address address = addressService.addNewAddress(addressDTO);
+      AddressDTO createdAddress = addressService.addNewAddress(addressDTO);
       BaseStatusCode code = SuccessCode.SUCCESS;
       return ResponseBody.builder()
           .code(code.getCode())
           .message(code.getMessage())
-          .data(address)
+          .data(createdAddress)
           .build()
           .buildResponseEntity(HttpStatus.OK);
     } catch (Exception e) {
-      log.error("Cannot add new address: {}", e.getMessage());
+      log.error("Cannot create a new address: {}", e.getMessage());
       throw new GlobalThrowable(
           ErrorCode.UAD5003_NOT_FOUND_ADDRESSES_FOR_ADDRESS_ID, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @PutMapping("/{addressId}")
+  public ResponseEntity<Object> updateAddress(
+      @PathVariable(name = "addressId") Long addressId,
+      @RequestBody @Valid AddressDTO addressDetails)
+      throws GlobalThrowable {
+    try {
+      AddressDTO updatedAddress = addressService.updateAddress(addressId, addressDetails);
+      BaseStatusCode code = SuccessCode.SUCCESS;
+      return ResponseBody.builder()
+          .code(code.getCode())
+          .message(code.getMessage())
+          .data(updatedAddress)
+          .build()
+          .buildResponseEntity(HttpStatus.OK);
+    } catch (Exception e) {
+      log.error("Cannot update the existing address: {}", e.getMessage());
+      throw new GlobalThrowable(
+          ErrorCode.UAD5004_CANNOT_UPDATE_THE_ADDRESS, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @DeleteMapping("/{addressId}")
+  public ResponseEntity<Object> deleteAddress(@PathVariable(name = "addressId") Long addressId)
+      throws GlobalThrowable {
+    try {
+      addressService.deleteAddressById(addressId);
+      BaseStatusCode code = SuccessCode.SUCCESS;
+      return ResponseBody.builder()
+          .code(code.getCode())
+          .message(code.getMessage())
+          .build()
+          .buildResponseEntity(HttpStatus.OK);
+    } catch (Exception e) {
+      log.error("Cannot delete the address: {}", e.getMessage());
+      throw new GlobalThrowable(
+          ErrorCode.UAD5006_CANNOT_DELETE_THE_ADDRESS, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
