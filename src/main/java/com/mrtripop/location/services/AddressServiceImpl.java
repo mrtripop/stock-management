@@ -27,10 +27,11 @@ public class AddressServiceImpl implements AddressService {
   }
 
   @Override
-  public List<AddressDTO> getAllAddress(QueryParams queryParams) throws GlobalThrowable {
+  public List<Address> getAllAddress(QueryParams queryParams) throws GlobalThrowable {
     try {
-      List<Address> addresses = retrieveAllAddress(queryParams);
-      return addresses.stream().map(AddressUtil::addressToDTO).toList();
+      Pageable pageable = DatabaseHelper.initPageableWithSort(queryParams);
+      Page<Address> pagesAddress = addressRepository.findAll(pageable);
+      return pagesAddress.getContent();
     } catch (Exception e) {
       log.error("Cannot select addresses: {}", e.getMessage());
       throw new GlobalThrowable(
@@ -39,10 +40,14 @@ public class AddressServiceImpl implements AddressService {
   }
 
   @Override
-  public AddressDTO getAddressById(Long addressId) throws GlobalThrowable {
+  public Address getAddressById(Long addressId) throws GlobalThrowable {
     try {
-      Address address = findAddressById(addressId);
-      return AddressUtil.addressToDTO(address);
+      return addressRepository
+          .findById(addressId)
+          .orElseThrow(
+              () ->
+                  new GlobalThrowable(
+                      ErrorCode.UAD5003_NOT_FOUND_ADDRESSES_FOR_ADDRESS_ID, HttpStatus.NOT_FOUND));
     } catch (Exception e) {
       log.error("Cannot select addresses by address ID({}): {}", addressId, e.getMessage());
       throw new GlobalThrowable(
@@ -52,11 +57,10 @@ public class AddressServiceImpl implements AddressService {
   }
 
   @Override
-  public AddressDTO addNewAddress(AddressDTO newAddress) throws GlobalThrowable {
+  public Address addNewAddress(AddressDTO newAddress) throws GlobalThrowable {
     try {
       Address address = AddressUtil.dtoToAddress(newAddress);
-      Address createdAddress = addressRepository.save(address);
-      return AddressUtil.addressToDTO(createdAddress);
+      return addressRepository.save(address);
     } catch (Exception e) {
       log.error("Cannot insert new address: {}", e.getMessage());
       throw new GlobalThrowable(
@@ -65,12 +69,11 @@ public class AddressServiceImpl implements AddressService {
   }
 
   @Override
-  public AddressDTO updateAddress(Long addressId, AddressDTO newAddress) throws GlobalThrowable {
+  public Address updateAddress(Long addressId, AddressDTO newAddress) throws GlobalThrowable {
     try {
-      Address existingAddress = findAddressById(addressId);
+      Address existingAddress = getAddressById(addressId);
       AddressUtil.updateAddress(existingAddress, newAddress);
-      Address updatedAddress = addressRepository.save(existingAddress);
-      return AddressUtil.addressToDTO(updatedAddress);
+      return addressRepository.save(existingAddress);
     } catch (Exception e) {
       log.error("Cannot update for address ID '{}': {}", addressId, e.getMessage());
       throw new GlobalThrowable(
@@ -82,27 +85,12 @@ public class AddressServiceImpl implements AddressService {
   @Override
   public void deleteAddressById(Long addressId) throws GlobalThrowable {
     try {
-      Address existingAddress = findAddressById(addressId);
+      Address existingAddress = getAddressById(addressId);
       addressRepository.delete(existingAddress);
     } catch (Exception e) {
       log.error("Cannot delete the address ID '{}': {}", addressId, e.getMessage());
       throw new GlobalThrowable(
           ErrorCode.UAD5007_CANNOT_DELETE_THE_ADDRESS_ID, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-  }
-
-  public List<Address> retrieveAllAddress(QueryParams queryParams) {
-    Pageable pageable = DatabaseHelper.initPageableWithSort(queryParams);
-    Page<Address> pagesAddress = addressRepository.findAll(pageable);
-    return pagesAddress.getContent();
-  }
-
-  public Address findAddressById(Long addressId) throws GlobalThrowable {
-    return addressRepository
-        .findById(addressId)
-        .orElseThrow(
-            () ->
-                new GlobalThrowable(
-                    ErrorCode.UAD5003_NOT_FOUND_ADDRESSES_FOR_ADDRESS_ID, HttpStatus.NOT_FOUND));
   }
 }

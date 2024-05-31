@@ -6,7 +6,9 @@ import com.mrtripop.location.constant.ErrorCode;
 import com.mrtripop.location.constant.SuccessCode;
 import com.mrtripop.location.interfaces.AddressService;
 import com.mrtripop.location.models.dtos.AddressDTO;
+import com.mrtripop.location.models.entities.Address;
 import com.mrtripop.location.services.AddressServiceImpl;
+import com.mrtripop.location.utils.AddressUtil;
 import com.mrtripop.model.QueryParams;
 import com.mrtripop.model.ResponseBody;
 import jakarta.validation.Valid;
@@ -32,12 +34,13 @@ public class AddressController {
   public ResponseEntity<Object> getAddresses(@Valid QueryParams queryParams)
       throws GlobalThrowable {
     try {
-      List<AddressDTO> addresses = addressService.getAllAddress(queryParams);
+      List<Address> addresses = addressService.getAllAddress(queryParams);
+      List<AddressDTO> response = addresses.stream().map(AddressUtil::addressToDTO).toList();
       BaseStatusCode code = SuccessCode.SUCCESS;
       return ResponseBody.builder()
           .code(code.getCode())
           .message(code.getMessage())
-          .data(addresses)
+          .data(response)
           .build()
           .buildResponseEntity(HttpStatus.OK);
     } catch (Exception e) {
@@ -52,12 +55,13 @@ public class AddressController {
       @PathVariable @Min(value = 1, message = "Address ID is invalid") Long addressId)
       throws GlobalThrowable {
     try {
-      AddressDTO address = addressService.getAddressById(addressId);
+      Address address = addressService.getAddressById(addressId);
+      AddressDTO response = AddressUtil.addressToDTO(address);
       BaseStatusCode code = SuccessCode.SUCCESS;
       return ResponseBody.builder()
           .code(code.getCode())
           .message(code.getMessage())
-          .data(address)
+          .data(response)
           .build()
           .buildResponseEntity(HttpStatus.OK);
     } catch (Exception e) {
@@ -71,12 +75,13 @@ public class AddressController {
   public ResponseEntity<Object> addNewAddress(@RequestBody @Valid AddressDTO addressDTO)
       throws GlobalThrowable {
     try {
-      AddressDTO createdAddress = addressService.addNewAddress(addressDTO);
+      Address createdAddress = addressService.addNewAddress(addressDTO);
+      AddressDTO response = AddressUtil.addressToDTO(createdAddress);
       BaseStatusCode code = SuccessCode.SUCCESS;
       return ResponseBody.builder()
           .code(code.getCode())
           .message(code.getMessage())
-          .data(createdAddress)
+          .data(response)
           .build()
           .buildResponseEntity(HttpStatus.OK);
     } catch (Exception e) {
@@ -92,12 +97,13 @@ public class AddressController {
       @RequestBody @Valid AddressDTO addressDetails)
       throws GlobalThrowable {
     try {
-      AddressDTO updatedAddress = addressService.updateAddress(addressId, addressDetails);
+      Address updatedAddress = addressService.updateAddress(addressId, addressDetails);
+      AddressDTO response = AddressUtil.addressToDTO(updatedAddress);
       BaseStatusCode code = SuccessCode.SUCCESS;
       return ResponseBody.builder()
           .code(code.getCode())
           .message(code.getMessage())
-          .data(updatedAddress)
+          .data(response)
           .build()
           .buildResponseEntity(HttpStatus.OK);
     } catch (Exception e) {
