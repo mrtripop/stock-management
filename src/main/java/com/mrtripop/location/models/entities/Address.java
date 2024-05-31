@@ -1,5 +1,6 @@
 package com.mrtripop.location.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -50,13 +51,16 @@ public class Address {
   @Column(name = "postal_code", columnDefinition = "TEXT")
   private String postalCode;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "address")
   private List<Warehouse> warehouses;
 
+  @JsonIgnore
   @CreatedDate
   @Column(name = "created_at", columnDefinition = "BIGINT")
   private Long createdAt;
 
+  @JsonIgnore
   @LastModifiedDate
   @Column(name = "updated_at", columnDefinition = "BIGINT")
   private Long updatedAt;
