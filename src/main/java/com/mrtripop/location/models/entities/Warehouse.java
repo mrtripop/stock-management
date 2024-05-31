@@ -1,5 +1,6 @@
 package com.mrtripop.location.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,10 +34,12 @@ public class Warehouse {
   @JoinColumn(name = "address_id")
   private Address address;
 
+  @JsonIgnore
   @CreatedDate
   @Column(name = "created_at", columnDefinition = "BIGINT")
   private Long createdAt;
 
+  @JsonIgnore
   @LastModifiedDate
   @Column(name = "updated_at", columnDefinition = "BIGINT")
   private Long updatedAt;
