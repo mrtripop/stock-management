@@ -105,6 +105,7 @@ http://localhost:8080/swagger-ui/index.html
 - [SOLID]
 - [Facade](https://refactoring.guru/design-patterns/facade/java/example)
 - [Builder]
+- [Strategies Design Pattern](https://medium.com/codex/implementing-the-strategy-design-pattern-in-spring-boot-df3adb9ceb4a)
 
 **Design System**
 
