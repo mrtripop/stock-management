@@ -4,15 +4,19 @@ import com.mrtripop.account.models.User;
 import com.mrtripop.account.repositories.UserRepository;
 import com.mrtripop.model.QueryParams;
 import com.mrtripop.util.DatabaseHelper;
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.time.ZonedDateTime;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -35,6 +39,12 @@ public class UserService {
       log.error(e.toString());
       throw new RuntimeException("RetrieveUsersException", e.getCause());
     }
+  }
+
+  public String getDay(int year, int month, int day){
+    Calendar calendar = new GregorianCalendar();
+    calendar.set(year, month, day);
+    return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US);
   }
 
   public User retrieveUserById(Long id) {

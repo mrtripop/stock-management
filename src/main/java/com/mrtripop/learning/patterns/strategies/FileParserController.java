@@ -1,4 +1,4 @@
-package com.mrtripop.learning.strategies;
+package com.mrtripop.learning.patterns.strategies;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
